@@ -1,0 +1,15 @@
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Tester.deps.json
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Tester.runtimeconfig.json
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Tester.runtimeconfig.dev.json
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Tester.dll
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Tester.pdb
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.dll
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.pdb
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Tester.csprojResolveAssemblyReference.cache
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Tester.AssemblyInfo.cs
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Tester.dll
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Tester.pdb
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Interfaces.dll
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Interfaces.pdb
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.ReferenceImplementations.dll
+C:\Code\ComputingSystems\ComputingSystems.CombLogic.Tester\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.ReferenceImplementations.pdb

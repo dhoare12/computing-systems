@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ComputingSystems.CombLogic.Interfaces\ComputingSystems.CombLogic.Interfaces.csproj" />
+    <ProjectReference Include="..\ComputingSystems.CombLogic.ReferenceImplementations\ComputingSystems.CombLogic.ReferenceImplementations.csproj" />
+    <ProjectReference Include="..\ComputingSystems.CombLogic\ComputingSystems.CombLogic.csproj" />
+  </ItemGroup>
+
+</Project>

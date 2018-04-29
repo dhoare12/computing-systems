@@ -1,0 +1,9 @@
+C:\Code\ComputingSystems\ComputingSystems.CombLogic\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.deps.json
+C:\Code\ComputingSystems\ComputingSystems.CombLogic\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.dll
+C:\Code\ComputingSystems\ComputingSystems.CombLogic\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.pdb
+C:\Code\ComputingSystems\ComputingSystems.CombLogic\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.AssemblyInfo.cs
+C:\Code\ComputingSystems\ComputingSystems.CombLogic\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.dll
+C:\Code\ComputingSystems\ComputingSystems.CombLogic\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.pdb
+C:\Code\ComputingSystems\ComputingSystems.CombLogic\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.csprojResolveAssemblyReference.cache
+C:\Code\ComputingSystems\ComputingSystems.CombLogic\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Interfaces.dll
+C:\Code\ComputingSystems\ComputingSystems.CombLogic\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Interfaces.pdb
