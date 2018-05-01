@@ -1,9 +1,0 @@
-C:\Code\ComputingSystems\ComputingSystems.CombLogic.ReferenceImplementations\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.ReferenceImplementations.deps.json
-C:\Code\ComputingSystems\ComputingSystems.CombLogic.ReferenceImplementations\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.ReferenceImplementations.dll
-C:\Code\ComputingSystems\ComputingSystems.CombLogic.ReferenceImplementations\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.ReferenceImplementations.pdb
-C:\Code\ComputingSystems\ComputingSystems.CombLogic.ReferenceImplementations\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Interfaces.dll
-C:\Code\ComputingSystems\ComputingSystems.CombLogic.ReferenceImplementations\bin\Debug\netcoreapp1.1\ComputingSystems.CombLogic.Interfaces.pdb
-C:\Code\ComputingSystems\ComputingSystems.CombLogic.ReferenceImplementations\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.ReferenceImplementations.csprojResolveAssemblyReference.cache
-C:\Code\ComputingSystems\ComputingSystems.CombLogic.ReferenceImplementations\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.ReferenceImplementations.AssemblyInfo.cs
-C:\Code\ComputingSystems\ComputingSystems.CombLogic.ReferenceImplementations\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.ReferenceImplementations.dll
-C:\Code\ComputingSystems\ComputingSystems.CombLogic.ReferenceImplementations\obj\Debug\netcoreapp1.1\ComputingSystems.CombLogic.ReferenceImplementations.pdb
