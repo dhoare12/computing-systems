@@ -34,7 +34,6 @@ namespace ComputingSystems.BoolArith.Tester
                 Console.WriteLine(string.Join("", c.SignedIntToBits(input, 4).Select(x => x ? "1" : "0").ToArray()));
 
             }
-            Console.ReadLine();
         }
     }
 }
