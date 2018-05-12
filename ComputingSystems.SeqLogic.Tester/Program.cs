@@ -5,49 +5,53 @@ namespace ComputingSystems.SeqLogic.Tester
 {
     class Program
     {
-        private static NBitRegister _register;
+        private static Ram64 _ram;
         static void Main(string[] args)
         {
-            _register = new NBitRegister(4);
-            SetRegisterLoad(true);
-            SetRegisterInput("1010");
-            ClockTick(); // 1010
-            ClockTick();
-            SetRegisterLoad(false);
-            ClockTick();
-            SetRegisterInput("0101");
-            ClockTick();
-            SetRegisterLoad(true);
-            ClockTick(); // 0101
-            ClockTick();
-            SetRegisterInput("1111");
-            ClockTick(); // 1111
-            SetRegisterLoad(false);
-            ClockTick();
-            SetRegisterInput("0000");
-            ClockTick();
+            _ram = new Ram64();
+            _ram.Address = "000 000".ToBinary();
+            _ram.Clock = false;
+            ReadAndLogAll();
+            Write("0000000", "1010101010101010".ToBinary());
+            ReadAndLogAll();
+            Write("010 100", "0101 0101 0101 0101".ToBinary());
+            ReadAndLogAll();
+            ReadAndLog("010 100");
+            Console.ReadLine();
         }
 
-        private static string RegisterOutput => string.Join("", _register.Outputs.Select(o => o ? "1" : "0").ToArray());
-
-        private static void ClockTick()
+        private static void ReadAndLog(string address)
         {
-            _register.Clock = !_register.Clock;
+            Console.WriteLine(Read(address).ToBinaryString());
         }
 
-        private static void SetRegisterInput(string input)
+        private static void ReadAndLogAll()
         {
-            _register.Inputs = input.ToCharArray().Select(c => c == '1').ToArray();
+            var addresses = new[] {"000 000", "000 001", "000 010", "000 011", "000 100", "000 101", "000 110", "000 111"};
+            var i = 0;
+            foreach (var address in addresses)
+            {
+                Console.WriteLine($"{i}: {Read(address).ToBinaryString()}");
+                i++;
+            }
+
+            Console.WriteLine();
         }
 
-        private static void SetRegisterLoad(bool input)
+        private static bool[] Read(string address)
         {
-            _register.Load = input;
+            _ram.Address = address.ToBinary();
+            _ram.Load = false;
+            _ram.Clock = !_ram.Clock;
+            return _ram.Output;
         }
 
-        private static void PrintRegisterOutput()
+        private static void Write(string address, bool[] value)
         {
-            Console.WriteLine(RegisterOutput);
+            _ram.Address = address.ToBinary();
+            _ram.Input = value;
+            _ram.Load = true;
+            _ram.Clock = !_ram.Clock;
         }
     }
 }

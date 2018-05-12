@@ -33,5 +33,10 @@ namespace ComputingSystems.SeqLogic
         }
 
         public bool[] Outputs => _registers.Select(r => r.Out).ToArray();
+
+        public override string ToString()
+        {
+            return _registers.Select(r => r.Out).ToArray().ToBinaryString();
+        }
     }
 }
