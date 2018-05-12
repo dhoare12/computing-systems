@@ -1,8 +1,19 @@
-﻿namespace ComputingSystems.CombLogic.ReferenceImplementations
+﻿using ComputingSystems.CombLogic.Interfaces;
+
+namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class Demultiplexor : TwoInputGate, ITwoOutputGate
+    public class Demultiplexor : IDemultiplexor
     {
-        public bool Output1 => !Input2 && Input1;
-        public bool Output2 => Input2 && Input1;
+        public bool Input { get; set; }
+        public bool Selector { get; set; }
+
+        public bool Output1 => !Selector && Input;
+        public bool Output2 => Selector && Input;
+
+        public void Fill(bool input, bool selector)
+        {
+            Input = input;
+            Selector = selector;
+        }
     }
 }

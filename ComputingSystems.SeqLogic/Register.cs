@@ -1,10 +1,12 @@
-﻿using ComputingSystems.CombLogic.ReferenceImplementations;
+﻿using ComputingSystems.CombLogic.Interfaces;
+using ComputingSystems.Core;
+using ComputingSystems.SeqLogic.Interfaces;
 
 namespace ComputingSystems.SeqLogic
 {
     public class Register : IClockedComponent
     {
-        private readonly Multiplexor _mux = new Multiplexor();
+        private readonly IMultiplexor _mux = TypeProvider.Get<IMultiplexor>();
         private readonly DataFlipFlop _dff = new DataFlipFlop();
 
         public bool Clock
@@ -12,15 +14,15 @@ namespace ComputingSystems.SeqLogic
             get => _dff.Clock;
             set
             {
-                _mux.Fill(_dff.Out, In, Load);
-                _dff.In = _mux.Output;
+                _mux.Fill(_dff.Output, Input, Load);
+                _dff.Input = _mux.Output;
                 _dff.Clock = value;
             }
         }
 
-        public bool In { get; set; }
+        public bool Input { get; set; }
         public bool Load { get; set; }
 
-        public bool Out => _dff.Out;
+        public bool Output => _dff.Output;
     }
 }

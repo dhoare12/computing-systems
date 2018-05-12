@@ -1,13 +1,14 @@
 ﻿using System.Linq;
+using ComputingSystems.CombLogic.Interfaces;
 using ComputingSystems.Core;
 
 namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class EightWayMultiplexor
+    public class EightWayMultiplexor : IEightWayMultiplexor
     {
-        private readonly Multiplexor[] _bottomMultiplexors = TypeProvider.GetArray<Multiplexor>(4);
-        private readonly Multiplexor[] _middleMultiplexors = TypeProvider.GetArray<Multiplexor>(2);
-        private readonly Multiplexor _topMultiplexor = TypeProvider.Get<Multiplexor>();
+        private readonly IMultiplexor[] _bottomMultiplexors = TypeProvider.GetArray<IMultiplexor>(4);
+        private readonly IMultiplexor[] _middleMultiplexors = TypeProvider.GetArray<IMultiplexor>(2);
+        private readonly IMultiplexor _topMultiplexor = TypeProvider.Get<IMultiplexor>();
 
         public bool[] Input { get; set; }
 

@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ComputingSystems.CombLogic.ReferenceImplementations\ComputingSystems.CombLogic.ReferenceImplementations.csproj" />
+    <ProjectReference Include="..\ComputingSystems.CombLogic.Interfaces\ComputingSystems.CombLogic.Interfaces.csproj" />
+    <ProjectReference Include="..\ComputingSystems.Core\ComputingSystems.Core.csproj" />
+    <ProjectReference Include="..\ComputingSystems.SeqLogic.Interfaces\ComputingSystems.SeqLogic.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

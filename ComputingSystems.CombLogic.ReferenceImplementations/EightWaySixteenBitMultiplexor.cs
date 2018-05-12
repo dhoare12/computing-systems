@@ -1,13 +1,14 @@
 ﻿using System.Linq;
+using ComputingSystems.CombLogic.Interfaces;
 using ComputingSystems.Core;
 
 namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class EightWaySixteenBitMultiplexor
+    public class EightWaySixteenBitMultiplexor : IEightWaySixteenBitMultiplexor
     {
-        private readonly EightWayMultiplexor[] _multiplexors = TypeProvider.GetArray<EightWayMultiplexor>(16);
+        private readonly IEightWayMultiplexor[] _multiplexors = TypeProvider.GetArray<IEightWayMultiplexor>(16);
 
-        public bool[][] Inputs { get; set; } = BinaryUtils.EmptyArray(8, 16);
+        public bool[][] Input { get; set; } = BinaryUtils.EmptyArray(8, 16);
 
         public bool[] Selector { get; set; } = BinaryUtils.EmptyArray(3);
 
@@ -17,7 +18,7 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations
             {
                 for (var i = 0; i < 16; i++)
                 {
-                    _multiplexors[i].Input = Inputs.Select(input => input[i]).ToArray();
+                    _multiplexors[i].Input = Input.Select(input => input[i]).ToArray();
                     _multiplexors[i].Selector = Selector;
                 }
 

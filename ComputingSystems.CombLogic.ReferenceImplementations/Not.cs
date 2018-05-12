@@ -1,7 +1,10 @@
-﻿namespace ComputingSystems.CombLogic.ReferenceImplementations
+﻿using ComputingSystems.CombLogic.Interfaces;
+
+namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class Not : SingleInputGate, ISingleOutputGate
+    public class Not : INot
     {
+        public bool Input { get; set; }
         public bool Output => !Input;
     }
 }

@@ -1,19 +1,21 @@
 ﻿using System.Linq;
-using ComputingSystems.CombLogic.ReferenceImplementations;
+using ComputingSystems.CombLogic.Interfaces;
+using ComputingSystems.Core;
+using ComputingSystems.SeqLogic.Interfaces;
 
 namespace ComputingSystems.SeqLogic
 {
-    public class Ram8 : IClockedComponent
+    public class Ram8 : IRam8
     {
         private readonly NBitRegister[] _registers = Enumerable.Range(0, 8).Select(_ => new NBitRegister(16)).ToArray();
-        private readonly EightWaySixteenBitMultiplexor _multiplexor = new EightWaySixteenBitMultiplexor();
+        private readonly IEightWaySixteenBitMultiplexor _multiplexor = TypeProvider.Get<IEightWaySixteenBitMultiplexor>();
 
-        private readonly EightWayDemultiplexor _deMux = new EightWayDemultiplexor();
+        private readonly IEightWayDemultiplexor _deMux = TypeProvider.Get<IEightWayDemultiplexor>();
 
         public bool[] Address { get; set; }
 
         public bool Load { get; set; }
-        public bool[] In { get; set; }
+        public bool[] Input { get; set; }
 
         private bool _clock;
         public bool Clock
@@ -21,12 +23,12 @@ namespace ComputingSystems.SeqLogic
             get => _clock;
             set
             {
-                _multiplexor.Inputs = _registers.Select(r => r.Outputs).ToArray();
+                _multiplexor.Input = _registers.Select(r => r.Output).ToArray();
                 _multiplexor.Selector = Address;
                 
                 foreach (var register in _registers)
                 {
-                    register.Inputs = In;
+                    register.Input = Input;
                     register.Load = false;
                 }
 
@@ -35,8 +37,8 @@ namespace ComputingSystems.SeqLogic
 
                 for (var i = 0; i < _registers.Length; i++)
                 {
-                    _registers[i].Inputs = In;
-                    _registers[i].Load = _deMux.Outputs[i];
+                    _registers[i].Input = Input;
+                    _registers[i].Load = _deMux.Output[i];
                 }
 
                 _clock = value;
@@ -47,7 +49,7 @@ namespace ComputingSystems.SeqLogic
             }
         }
 
-        public bool[] Out => _multiplexor.Output;
+        public bool[] Output => _multiplexor.Output;
 
         public static Ram8[] ArrayOf(int count) => Enumerable.Range(0, 8).Select(_ => new Ram8()).ToArray();
     }

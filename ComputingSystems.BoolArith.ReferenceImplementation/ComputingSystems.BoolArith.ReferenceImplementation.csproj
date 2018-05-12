@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ComputingSystems.BoolArith.Interfaces\ComputingSystems.BoolArith.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

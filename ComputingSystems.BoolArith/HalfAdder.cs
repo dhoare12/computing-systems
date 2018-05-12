@@ -3,18 +3,21 @@ using ComputingSystems.CombLogic.ReferenceImplementations;
 
 namespace ComputingSystems.BoolArith
 {
-    public class HalfAdder : TwoInputGate, ITwoOutputGate
+    public class HalfAdder
     {
         private readonly And _and1 = new And(), _and2 = new And(), _and3 = new And();
         private readonly Or _or = new Or();
         private readonly Not _not1 = new Not(), _not2 = new Not();
 
+        public bool Input1 { get; set; }
+        public bool Input2 { get; set; }
+
         public bool Output1
         {
             get
             {
-                _not1.Fill(Input1);
-                _not2.Fill(Input2);
+                _not1.Input = Input1;
+                _not2.Input = Input2;
                 _and1.Fill(Input1, _not2.Output);
                 _and2.Fill(Input2, _not1.Output);
                 _or.Fill(_and1.Output, _and2.Output);

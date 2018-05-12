@@ -1,9 +1,10 @@
 ﻿using ComputingSystems.CombLogic.ReferenceImplementations;
 using System.Linq;
+using ComputingSystems.BoolArith.Interfaces;
 
 namespace ComputingSystems.BoolArith.ALU
 {
-    public class Alu
+    public class Alu : IAlu
     {
         private readonly InputTransformChip _xTransform = new InputTransformChip(),
             _yTransform = new InputTransformChip();
@@ -18,14 +19,14 @@ namespace ComputingSystems.BoolArith.ALU
         private readonly SixteenBitMux _mux1 = new SixteenBitMux();
         private readonly SixteenBitMux _mux2 = new SixteenBitMux();
 
-        private bool Zx { get; set; }
-        private bool Nx { get; set; }
-        private bool Zy { get; set; }
-        private bool Ny { get; set; }
-        private bool F { get; set; }
-        private bool No { get; set; }
-        private bool[] X { get; set; }
-        private bool[] Y { get; set; }
+        public bool Zx { get; set; }
+        public bool Nx { get; set; }
+        public bool Zy { get; set; }
+        public bool Ny { get; set; }
+        public bool F { get; set; }
+        public bool No { get; set; }
+        public bool[] X { get; set; }
+        public bool[] Y { get; set; }
 
         public void Fill(bool zx, bool nx, bool zy, bool ny, bool f, bool no, bool[] x, bool[] y)
         {
@@ -72,12 +73,6 @@ namespace ComputingSystems.BoolArith.ALU
             }
         }
 
-        public bool Ng
-        {
-            get
-            {
-                return Out[0];
-            }
-        }
+        public bool Ng => Out[0];
     }
 }

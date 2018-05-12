@@ -1,8 +1,19 @@
-﻿namespace ComputingSystems.CombLogic.ReferenceImplementations
+﻿using ComputingSystems.CombLogic.Interfaces;
+
+namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class Multiplexor : ThreeInputGate, ISingleOutputGate
+    public class Multiplexor : IMultiplexor
     {
-        // Input3 = control
-        public bool Output => Input3 ? Input2 : Input1;
+        public bool Input1 { get; set; }
+        public bool Input2 { get; set; }
+        public bool Selector { get; set; }
+        public bool Output => Selector ? Input2 : Input1;
+
+        public void Fill(bool input1, bool input2, bool selector)
+        {
+            Input1 = input1;
+            Input2 = input2;
+            Selector = selector;
+        }
     }
 }

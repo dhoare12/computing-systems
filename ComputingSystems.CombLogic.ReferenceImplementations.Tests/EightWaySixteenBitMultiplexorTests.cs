@@ -1,0 +1,37 @@
+using System.Linq;
+using ComputingSystems.CombLogic.Interfaces;
+using ComputingSystems.Core;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
+{
+    [TestClass]
+    public class EightWaySixteenBitMultiplexorTests
+    {
+        private IEightWaySixteenBitMultiplexor _multiplexor;
+        private static readonly int[] TestInput = new[] {7, 14, 21, 28, 35, 42, 49, 56};
+
+        [TestMethod]
+        public void EightWaySixteenBitMultiplexorGateShouldBehaveCorrectly()
+        {
+            TestSetup.Setup();
+            _multiplexor = TypeProvider.Get<IEightWaySixteenBitMultiplexor>();
+
+            VerifyOutput("000", 7);
+            VerifyOutput("001", 14);
+            VerifyOutput("010", 21);
+            VerifyOutput("011", 28);
+            VerifyOutput("100", 35);
+            VerifyOutput("101", 42);
+            VerifyOutput("110", 49);
+            VerifyOutput("111", 56);
+        }
+
+        private void VerifyOutput(string selector, int expectedOutput)
+        {
+            _multiplexor.Input = TestInput.Select(BinaryUtils.SixteenBitIntToBits).ToArray();
+            _multiplexor.Selector = selector.ToBinary();
+            Assert.AreEqual(BinaryUtils.SixteenBitBitsToInt(_multiplexor.Output), expectedOutput);
+        }
+    }
+}

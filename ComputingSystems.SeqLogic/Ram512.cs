@@ -1,13 +1,15 @@
 ﻿using System.Linq;
-using ComputingSystems.CombLogic.ReferenceImplementations;
+using ComputingSystems.CombLogic.Interfaces;
+using ComputingSystems.Core;
+using ComputingSystems.SeqLogic.Interfaces;
 
 namespace ComputingSystems.SeqLogic
 {
-    public class Ram512 : IClockedComponent
+    public class Ram512 : IRam512
     {
         private readonly Ram64[] _ram = Ram64.ArrayOf(8);
-        private readonly EightWaySixteenBitMultiplexor _mux = new EightWaySixteenBitMultiplexor();
-        private readonly EightWayDemultiplexor _demux = new EightWayDemultiplexor();
+        private readonly IEightWaySixteenBitMultiplexor _mux = TypeProvider.Get<IEightWaySixteenBitMultiplexor>();
+        private readonly IEightWayDemultiplexor _demux = TypeProvider.Get<IEightWayDemultiplexor>();
 
         public bool[] Address { get; set; } = "000 000 000".ToBinary(); // Nine bits
         private bool[] AddressMostSignificant => new[] {Address[0], Address[1], Address[2]};
@@ -39,7 +41,7 @@ namespace ComputingSystems.SeqLogic
                 for (var i = 0; i < _ram.Length; i++)
                 {
                     _ram[i].Input = Input;
-                    _ram[i].Load = _demux.Outputs[i];
+                    _ram[i].Load = _demux.Output[i];
                 }
 
                 _clock = value;
@@ -48,7 +50,7 @@ namespace ComputingSystems.SeqLogic
                 {
                     ram.Clock = value;
                 }
-                _mux.Inputs = _ram.Select(r => r.Output).ToArray();
+                _mux.Input = _ram.Select(r => r.Output).ToArray();
                 _mux.Selector = AddressMostSignificant;
             }
         }

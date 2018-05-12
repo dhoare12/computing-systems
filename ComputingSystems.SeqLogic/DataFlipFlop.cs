@@ -1,16 +1,13 @@
-﻿namespace ComputingSystems.SeqLogic
-{
-    public interface IClockedComponent
-    {
-        bool Clock { get; set; }
-    }
+﻿using ComputingSystems.SeqLogic.Interfaces;
 
+namespace ComputingSystems.SeqLogic
+{
     // I'm gonna assume this as already implemented
     // Could implement this with NAND latches and feedback loops
     public class DataFlipFlop : IClockedComponent
     {
         private bool _clock = false;
-        private bool _value = false;
+
         public bool Clock
         {
             get => _clock;
@@ -24,13 +21,13 @@
             }
         }
 
-        public bool Out => _value;
+        public bool Output { get; private set; } = false;
 
-        public bool In { get; set; }
+        public bool Input { get; set; }
 
         private void HandleClockTick()
         {
-            _value = In;
+            Output = Input;
         }
     }
 }

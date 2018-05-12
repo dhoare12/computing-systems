@@ -34,6 +34,12 @@ namespace ComputingSystems.Core
             Kernel[type] = () => func();
         }
 
+        public static void ReBind<T>(Func<T> func)
+        {
+            var type = typeof(T);
+            Kernel[type] = () => func();
+        }
+
         public static void Clear()
         {
             Kernel.Clear();

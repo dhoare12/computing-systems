@@ -1,30 +1,44 @@
-﻿namespace ComputingSystems.CombLogic
+﻿using ComputingSystems.CombLogic.Interfaces;
+using ComputingSystems.Core;
+
+namespace ComputingSystems.CombLogic
 {
-    public class Multiplexor : ThreeInputGate, ISingleOutputGate
+    public class Multiplexor : IMultiplexor
     {
-        private readonly And _and1 = new And(), _and2 = new And(), _and3 = new And(), _and4 = new And(), _and5 = new And();
-        private readonly Not _not1 = new Not(), _not2 = new Not(), _not3 = new Not();
-        private readonly Or _or1 = new Or(), _or2 = new Or();
+        private readonly IAnd[] _ands = TypeProvider.GetArray<IAnd>(5);
+        private readonly INot[] _nots = TypeProvider.GetArray<INot>(3);
+        private readonly IOr[] _ors = TypeProvider.GetArray<IOr>(2);
+
+        public bool Input1 { get; set; }
+        public bool Input2 { get; set; }
+        public bool Selector { get; set; }
 
         public bool Output
         {
             get
             {
-                _and1.Fill(Input1, Input2);
+                _ands[0].Fill(Input1, Input2);
 
-                _not1.Fill(Input2);
-                _not2.Fill(Input3);
-                _and2.Fill(Input1, _not1.Output);
-                _and3.Fill(_and2.Output, _not2.Output);
+                _nots[0].Input = Input2;
+                _nots[1].Input = Selector;
+                _ands[1].Fill(Input1, _nots[0].Output);
+                _ands[2].Fill(_ands[1].Output, _nots[1].Output);
 
-                _not3.Fill(Input1);
-                _and4.Fill(_not3.Output, Input2);
-                _and5.Fill(_and4.Output, Input3);
+                _nots[2].Input = Input1;
+                _ands[3].Fill(_nots[2].Output, Input2);
+                _ands[4].Fill(_ands[3].Output, Selector);
 
-                _or1.Fill(_and1.Output, _and3.Output);
-                _or2.Fill(_or1.Output, _and5.Output);
-                return _or2.Output;
+                _ors[0].Fill(_ands[0].Output, _ands[2].Output);
+                _ors[1].Fill(_ors[0].Output, _ands[4].Output);
+                return _ors[1].Output;
             }
+        }
+
+        public void Fill(bool input1, bool input2, bool selector)
+        {
+            Input1 = input1;
+            Input2 = input2;
+            Selector = selector;
         }
     }
 }

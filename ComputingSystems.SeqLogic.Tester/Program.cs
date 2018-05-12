@@ -4,10 +4,10 @@ namespace ComputingSystems.SeqLogic.Tester
 {
     class Program
     {
-        private static Ram64k _ram;
+        private static Ram16k _ram;
         static void Main(string[] args)
         {
-            _ram = new Ram64k();
+            _ram = new Ram16k();
             _ram.Address = "00 000 000 000 000".ToBinary();
             _ram.Clock = false;
             ReadAndLogAll();

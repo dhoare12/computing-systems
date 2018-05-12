@@ -20,7 +20,7 @@ namespace ComputingSystems.BoolArith
             {
                 for (var i = 0; i < 16; i++)
                 {
-                    _not[i].Fill(_input[i]);
+                    _not[i].Input = _input[i];
                 }
 
                 return _not.Select(n => n.Output).ToArray();

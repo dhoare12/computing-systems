@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using ComputingSystems.BoolArith.Interfaces;
 
 namespace ComputingSystems.BoolArith.ReferenceImplementation
 {
-    public class Alu
+    public class Alu : IAlu
     {
         private readonly TwosComplementConverter _converter = new TwosComplementConverter();
         public bool Zx { get; set; }
@@ -34,13 +36,18 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation
                 {
                     y = -y;
                 }
-                var output = F ? x + y : And(x,y, X.Length); // TODO: & is not correct
+                var output = F ? x + y : And(x,y, X.Length);
                 if (No)
                 {
                     output = -output;
                 }
                 return _converter.SignedIntToBits(output, X.Length);
             }
+        }
+
+        public void Fill(bool zx, bool nx, bool zy, bool ny, bool f, bool no, bool[] x, bool[] y)
+        {
+            throw new System.NotImplementedException();
         }
 
         private int And(int a, int b, int noBits)
@@ -55,5 +62,8 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation
 
             return _converter.BitsToUnsignedInt(bits);
         }
+
+        public bool Ng => throw new NotImplementedException();
+        public bool Zr => throw new NotImplementedException();
     }
 }

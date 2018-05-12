@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ComputingSystems.BoolArith.Interfaces\ComputingSystems.BoolArith.Interfaces.csproj" />
     <ProjectReference Include="..\ComputingSystems.CombLogic.Interfaces\ComputingSystems.CombLogic.Interfaces.csproj" />
     <ProjectReference Include="..\ComputingSystems.CombLogic.ReferenceImplementations\ComputingSystems.CombLogic.ReferenceImplementations.csproj" />
   </ItemGroup>

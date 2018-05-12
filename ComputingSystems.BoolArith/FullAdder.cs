@@ -3,7 +3,7 @@ using ComputingSystems.CombLogic.ReferenceImplementations;
 
 namespace ComputingSystems.BoolArith
 {
-    public class FullAdder : ThreeInputGate, ITwoOutputGate
+    public class FullAdder
     {
         private readonly And _and1 = new And(), _and2 = new And(),_and3 = new And(),_and4 = new And(), _and5 = new And(), _and6 = new And(),
             _and7 = new And(), _and8 = new And();
@@ -12,14 +12,26 @@ namespace ComputingSystems.BoolArith
 
         private readonly And _and9 = new And(), _and10 = new And(), _and11 = new And();
         private readonly Or _or4 = new Or(), _or5 = new Or();
+
+        public bool Input1 { get; set; }
+        public bool Input2 { get; set; }
+        public bool Input3 { get; set; }
+
+        public void Fill(bool input1, bool input2, bool input3)
+        {
+            Input1 = input1;
+            Input2 = input2;
+            Input3 = input3;
+        }
+
         // Value bit
-        public bool Output1
+        public bool Output
         {
             get
             {
-                _not1.Fill(Input1);
-                _not2.Fill(Input2);
-                _not3.Fill(Input3);
+                _not1.Input = Input1;
+                _not2.Input = Input2;
+                _not3.Input = Input3;
 
                 _and1.Fill(Input1, _not2.Output);
                 _and2.Fill(_and1.Output, _not3.Output);
@@ -42,7 +54,7 @@ namespace ComputingSystems.BoolArith
         }
 
         // Carry bit
-        public bool Output2
+        public bool Carry
         {
             get
             {

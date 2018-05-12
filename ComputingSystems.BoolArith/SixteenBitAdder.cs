@@ -16,10 +16,10 @@ namespace ComputingSystems.BoolArith
             {
                 for (var i = 0; i < 16; i++)
                 {
-                    _adders[i].Fill(i == 0 ? false : _adders[i - 1].Output2, Input1[0], Input2[0]);
+                    _adders[i].Fill(i == 0 ? false : _adders[i - 1].Carry, Input1[0], Input2[0]);
                 }
 
-                return _adders.Select(a => a.Output1).ToArray();
+                return _adders.Select(a => a.Output).ToArray();
             }
         }
 
