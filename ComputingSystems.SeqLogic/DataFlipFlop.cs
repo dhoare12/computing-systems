@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ComputingSystems.SeqLogic
+﻿namespace ComputingSystems.SeqLogic
 {
     public interface IClockedComponent
     {

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using ComputingSystems.CombLogic.ReferenceImplementations;
 
 namespace ComputingSystems.BoolArith.ALU
 {

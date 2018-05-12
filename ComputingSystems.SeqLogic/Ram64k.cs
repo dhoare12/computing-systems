@@ -3,15 +3,15 @@ using ComputingSystems.CombLogic.ReferenceImplementations;
 
 namespace ComputingSystems.SeqLogic
 {
-    public class Ram512 : IClockedComponent
+    public class Ram64k : IClockedComponent
     {
-        private readonly Ram64[] _ram = Ram64.ArrayOf(8);
+        private readonly Ram4k[] _ram = Ram4k.ArrayOf(8);
         private readonly EightWaySixteenBitMultiplexor _mux = new EightWaySixteenBitMultiplexor();
         private readonly EightWayDemultiplexor _demux = new EightWayDemultiplexor();
 
-        public bool[] Address { get; set; } = "000 000 000".ToBinary(); // Nine bits
-        private bool[] AddressMostSignificant => new[] {Address[0], Address[1], Address[2]};
-        private bool[] AddressLeastSignificant => new[] {Address[3], Address[4], Address[5], Address[6], Address[7], Address[8]};
+        public bool[] Address { get; set; } = "00 000 000 000 000".ToBinary(); // Fourteen bits
+        private bool[] AddressMostSignificant => new[] { false, Address[0], Address[1] };
+        private bool[] AddressLeastSignificant => new[] { Address[2], Address[3], Address[4], Address[5], Address[6], Address[7], Address[8], Address[9], Address[10], Address[11], Address[12], Address[13] };
 
         public bool[] Input { get; set; } = "00000000 00000000".ToBinary();
 
@@ -31,7 +31,7 @@ namespace ComputingSystems.SeqLogic
                     ram.Input = Input;
                     ram.Load = false;
                 }
-                
+
 
                 _demux.Selector = AddressMostSignificant;
                 _demux.Input = Load;
@@ -52,7 +52,5 @@ namespace ComputingSystems.SeqLogic
                 _mux.Selector = AddressMostSignificant;
             }
         }
-
-        public static Ram512[] ArrayOf(int count) => Enumerable.Range(0, count).Select(_ => new Ram512()).ToArray();
     }
 }

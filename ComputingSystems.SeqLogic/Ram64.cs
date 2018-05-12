@@ -52,5 +52,7 @@ namespace ComputingSystems.SeqLogic
                 _mux.Selector = AddressMostSignificant;
             }
         }
+
+        public static Ram64[] ArrayOf(int count) => Enumerable.Range(0, count).Select(_ => new Ram64()).ToArray();
     }
 }

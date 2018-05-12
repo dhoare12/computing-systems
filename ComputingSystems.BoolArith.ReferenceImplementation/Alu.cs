@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
 
 namespace ComputingSystems.BoolArith.ReferenceImplementation
 {
@@ -36,13 +34,26 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation
                 {
                     y = -y;
                 }
-                var output = F ? x + y : x & y; // TODO: & is not correct
+                var output = F ? x + y : And(x,y, X.Length); // TODO: & is not correct
                 if (No)
                 {
                     output = -output;
                 }
                 return _converter.SignedIntToBits(output, X.Length);
             }
+        }
+
+        private int And(int a, int b, int noBits)
+        {
+            var aBits = _converter.SignedIntToBits(a, noBits);
+            var bBits = _converter.SignedIntToBits(b, noBits);
+            var bits = Enumerable.Range(0, noBits).Select(_ => false).ToArray();
+            for (var i = 0; i < noBits; i++)
+            {
+                bits[i] = aBits[i] && bBits[i];
+            }
+
+            return _converter.BitsToUnsignedInt(bits);
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace ComputingSystems.CombLogic.ReferenceImplementations
+﻿namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
     public class And : TwoInputGate, ISingleOutputGate
     {
