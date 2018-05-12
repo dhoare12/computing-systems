@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ComputingSystems.CombLogic.Interfaces\ComputingSystems.CombLogic.Interfaces.csproj" />
+    <ProjectReference Include="..\ComputingSystems.Core\ComputingSystems.Core.csproj" />
   </ItemGroup>
 
 </Project>

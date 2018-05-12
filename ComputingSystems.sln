@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.BoolArith.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.BoolArith.Tester", "ComputingSystems.BoolArith.Tester\ComputingSystems.BoolArith.Tester.csproj", "{136CCC15-FA71-4728-8925-FA5E012A0B1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.SeqLogic", "ComputingSystems.SeqLogic\ComputingSystems.SeqLogic.csproj", "{5609BEA7-5A58-493B-9E75-D9AD88BD6C21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.SeqLogic", "ComputingSystems.SeqLogic\ComputingSystems.SeqLogic.csproj", "{5609BEA7-5A58-493B-9E75-D9AD88BD6C21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.SeqLogic.Tester", "ComputingSystems.SeqLogic.Tester\ComputingSystems.SeqLogic.Tester.csproj", "{A60171FD-188D-48D7-B947-6D58EEE6D3E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.SeqLogic.Tester", "ComputingSystems.SeqLogic.Tester\ComputingSystems.SeqLogic.Tester.csproj", "{A60171FD-188D-48D7-B947-6D58EEE6D3E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.Core", "ComputingSystems.Core\ComputingSystems.Core.csproj", "{082B2F05-A4DE-477F-A211-CEC568DA7AAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{A60171FD-188D-48D7-B947-6D58EEE6D3E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A60171FD-188D-48D7-B947-6D58EEE6D3E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A60171FD-188D-48D7-B947-6D58EEE6D3E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{082B2F05-A4DE-477F-A211-CEC568DA7AAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{082B2F05-A4DE-477F-A211-CEC568DA7AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{082B2F05-A4DE-477F-A211-CEC568DA7AAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{082B2F05-A4DE-477F-A211-CEC568DA7AAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
