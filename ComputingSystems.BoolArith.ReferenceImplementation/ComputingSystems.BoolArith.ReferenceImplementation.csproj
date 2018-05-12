@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ComputingSystems.BoolArith.Interfaces\ComputingSystems.BoolArith.Interfaces.csproj" />
+    <ProjectReference Include="..\ComputingSystems.Core\ComputingSystems.Core.csproj" />
   </ItemGroup>
 
 </Project>

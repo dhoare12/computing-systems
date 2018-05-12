@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ComputingSystems.BoolArith.Interfaces;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.BoolArith.ReferenceImplementation
 {
@@ -16,33 +17,41 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation
         public bool[] X { get; set; }
         public bool[] Y { get; set; }
 
-        public bool[] Out { get
+        public bool[] Out
+        {
+            get
             {
-                var x = _converter.BitsToUnsignedInt(X);
-                var y = _converter.BitsToUnsignedInt(Y);
+                var x = X;
+                var y = Y;
                 if (Zx)
                 {
-                    x = 0;
+                    x = BinaryUtils.EmptyArray(16);
                 }
                 if (Nx)
                 {
-                    x = -x;
+                    x = Negate(x);
                 }
                 if (Zy)
                 {
-                    y = 0;
+                    y = BinaryUtils.EmptyArray(16);
                 }
                 if (Ny)
                 {
-                    y = -y;
+                    y = Negate(y);
                 }
-                var output = F ? x + y : And(x,y, X.Length);
+                var output = F ? Add(x, y) : And(x, y, X.Length);
                 if (No)
                 {
-                    output = -output;
+                    output = Negate(output);
                 }
-                return _converter.SignedIntToBits(output, X.Length);
+
+                return output;
             }
+        }
+
+        private bool[] Add(bool[] x, bool[] y)
+        {
+            return _converter.SignedIntToBits(_converter.BitsToSignedInt(x) + _converter.BitsToSignedInt(y), 16);
         }
 
         public void Fill(bool zx, bool nx, bool zy, bool ny, bool f, bool no, bool[] x, bool[] y)
@@ -50,20 +59,17 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation
             throw new System.NotImplementedException();
         }
 
-        private int And(int a, int b, int noBits)
+        private static bool[] And(bool[] a, bool[] b, int noBits)
         {
-            var aBits = _converter.SignedIntToBits(a, noBits);
-            var bBits = _converter.SignedIntToBits(b, noBits);
-            var bits = Enumerable.Range(0, noBits).Select(_ => false).ToArray();
-            for (var i = 0; i < noBits; i++)
-            {
-                bits[i] = aBits[i] && bBits[i];
-            }
-
-            return _converter.BitsToUnsignedInt(bits);
+            return a.Select((x, i) => x && b[i]).ToArray();
         }
 
-        public bool Ng => throw new NotImplementedException();
-        public bool Zr => throw new NotImplementedException();
+        private static bool[] Negate(bool[] bits)
+        {
+            return bits.Select(b => !b).ToArray();
+        }
+
+        public bool Ng => Out[0];
+        public bool Zr => Out.All(x => x == false);
     }
 }

@@ -9,6 +9,7 @@ namespace ComputingSystems.BoolArith
         public void Fill(bool[] input1, bool[] input2)
         {
             Input1 = input1;
+            Input2 = input2;
         }
         public bool[] Outputs
         {
