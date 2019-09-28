@@ -7,12 +7,25 @@ namespace ComputingSystems.MachLang
 {
     public class InstructionParser
     {
-        private static readonly Regex AInstruction = new Regex(@"@(?<value>[a-zA-Z]+|[0-9]+)");
+        private static readonly Regex LabelLine = new Regex(@"\((?<label>[a-zA-Z0-9_.$:]+)\)");
+        private static readonly Regex AInstruction = new Regex(@"@(?<value>[a-zA-Z0-9_.$:]+|[0-9]+)");
         private static readonly Regex CInstruction = new Regex(@"((?<dest>[AMD]{1,3})=)?(?<comp>[AMD01\-\+!|\&]{1,3})(;(?<jump>[A-Z]{3}))?");
 
-        public IInstruction Parse(string mnemonic)
+        public IAssemblyLine Parse(string mnemonic)
         {
-            var match = AInstruction.Match(mnemonic);
+            if (mnemonic.StartsWith("//"))
+            {
+                return null;
+            }
+
+            var match = LabelLine.Match(mnemonic);
+
+            if (match.Success)
+            {
+                return new LabelLine(match.Groups["label"].Value);
+            }
+
+            match = AInstruction.Match(mnemonic);
             if (match.Success)
             {
                 if (int.TryParse(match.Groups["value"].Value, out var literal))

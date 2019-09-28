@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ComputingSystems.BoolArith.ReferenceImplementation\ComputingSystems.BoolArith.ReferenceImplementation.csproj" />
+    <ProjectReference Include="..\ComputingSystems.CombLogic.ReferenceImplementations\ComputingSystems.CombLogic.ReferenceImplementations.csproj" />
+    <ProjectReference Include="..\ComputingSystems.SeqLogic.ReferenceImplementation\ComputingSystems.SeqLogic.ReferenceImplementation.csproj" />
+  </ItemGroup>
+
+</Project>

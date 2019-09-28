@@ -132,7 +132,7 @@ namespace ComputingSystems.MachLang.Parts
             }
 
             var notAMatch = NotAMap.Single(x => x.Item1 == computation);
-            return (notAMatch.Item2.Select(x => x == '1').ToArray(), true);
+            return (notAMatch.Item2.Select(x => x == '1').ToArray(), false);
         }
     }
 }

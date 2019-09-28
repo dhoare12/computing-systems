@@ -1,5 +1,7 @@
+using System;
 using System.IO;
 using System.Linq;
+using ComputingSystems.MachLang.Instructions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ComputingSystems.MachLang.Tests
@@ -16,9 +18,20 @@ namespace ComputingSystems.MachLang.Tests
 
             foreach (var line in file)
             {
-                var instruction = parser.Parse(line);
+                var parsedLine = parser.Parse(line);
 
-                Assert.AreEqual(line, instruction.Mnemonic);
+                if (parsedLine is IInstruction instruction)
+                {
+                    try
+                    {
+                        Console.WriteLine(instruction.Bits.ToStringRepresentation() + " " + instruction.Mnemonic);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    
+                }
             }
         }
     }

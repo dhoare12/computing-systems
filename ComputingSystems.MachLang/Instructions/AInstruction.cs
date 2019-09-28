@@ -1,4 +1,8 @@
-﻿namespace ComputingSystems.MachLang.Instructions
+﻿using System;
+using System.Linq;
+using ComputingSystems.Core;
+
+namespace ComputingSystems.MachLang.Instructions
 {
     public abstract class AInstruction : IInstruction
     {
@@ -15,19 +19,37 @@
         }
 
         public override string Mnemonic => $"@{_literal}";
-        public override bool[] Bits { get; }
+        public override bool[] Bits => BinaryUtils.SixteenBitIntToBits(_literal); // TODO: Should be 0 + FifteenBit
     }
 
     public class ASymbolInstruction : AInstruction
     {
-        private readonly string _symbol;
-
         public ASymbolInstruction(string symbol)
         {
-            _symbol = symbol;
+            Symbol = symbol;
         }
 
-        public override string Mnemonic => $"@{_symbol}";
-        public override bool[] Bits { get; }
+        public string Symbol { get; }
+        private bool[] _assignedAddress;
+
+        public void AssignAddress(bool[] address)
+        {
+            _assignedAddress = address;
+        }
+
+        public override string Mnemonic => $"@{Symbol}";
+
+        public override bool[] Bits
+        {
+            get
+            {
+                if (_assignedAddress == null)
+                {
+                    throw new Exception($"No address assigned for symbol{Symbol}");
+                }
+
+                return new[] {false}.Concat(_assignedAddress).ToArray();
+            }
+        }
     }
 }

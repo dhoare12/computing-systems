@@ -47,9 +47,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. SeqLogic", "3. SeqLogic"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. MachLang", "4. MachLang", "{EC4E89F1-540A-431E-8576-1410D14466DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.MachLang", "ComputingSystems.MachLang\ComputingSystems.MachLang.csproj", "{AA35E456-FA4D-427B-B8FD-33648BE39B40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.MachLang", "ComputingSystems.MachLang\ComputingSystems.MachLang.csproj", "{AA35E456-FA4D-427B-B8FD-33648BE39B40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.MachLang.Tests", "ComputingSystems.MachLang.Tests\ComputingSystems.MachLang.Tests.csproj", "{E5C3A01A-848C-451C-B2B4-089BA1B26D8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.MachLang.Tests", "ComputingSystems.MachLang.Tests\ComputingSystems.MachLang.Tests.csproj", "{E5C3A01A-848C-451C-B2B4-089BA1B26D8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.MachLang.Tester", "ComputingSystems.MachLang.Tester\ComputingSystems.MachLang.Tester.csproj", "{7A7098E0-2A1A-4E21-A9BC-73B231BC79F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.MachLang.Assembler", "ComputingSystems.MachLang.Assembler\ComputingSystems.MachLang.Assembler.csproj", "{B41FF8B0-C823-4E9C-AC2A-398CCC40D074}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Computer", "5. Computer", "{049CE8DD-43A5-484C-B079-54243E94C728}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.Computer", "ComputingSystems.Computer\ComputingSystems.Computer.csproj", "{76A0CC8A-AF9B-40FE-8AC6-884F84DDAE57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,6 +145,18 @@ Global
 		{E5C3A01A-848C-451C-B2B4-089BA1B26D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5C3A01A-848C-451C-B2B4-089BA1B26D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5C3A01A-848C-451C-B2B4-089BA1B26D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A7098E0-2A1A-4E21-A9BC-73B231BC79F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A7098E0-2A1A-4E21-A9BC-73B231BC79F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A7098E0-2A1A-4E21-A9BC-73B231BC79F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7098E0-2A1A-4E21-A9BC-73B231BC79F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B41FF8B0-C823-4E9C-AC2A-398CCC40D074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B41FF8B0-C823-4E9C-AC2A-398CCC40D074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B41FF8B0-C823-4E9C-AC2A-398CCC40D074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B41FF8B0-C823-4E9C-AC2A-398CCC40D074}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76A0CC8A-AF9B-40FE-8AC6-884F84DDAE57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76A0CC8A-AF9B-40FE-8AC6-884F84DDAE57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76A0CC8A-AF9B-40FE-8AC6-884F84DDAE57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76A0CC8A-AF9B-40FE-8AC6-884F84DDAE57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,6 +181,9 @@ Global
 		{80B28256-2765-469A-805C-D864A15B12D7} = {45C8E978-502D-4568-8A78-91AA3EA83AA9}
 		{AA35E456-FA4D-427B-B8FD-33648BE39B40} = {EC4E89F1-540A-431E-8576-1410D14466DF}
 		{E5C3A01A-848C-451C-B2B4-089BA1B26D8B} = {EC4E89F1-540A-431E-8576-1410D14466DF}
+		{7A7098E0-2A1A-4E21-A9BC-73B231BC79F0} = {EC4E89F1-540A-431E-8576-1410D14466DF}
+		{B41FF8B0-C823-4E9C-AC2A-398CCC40D074} = {EC4E89F1-540A-431E-8576-1410D14466DF}
+		{76A0CC8A-AF9B-40FE-8AC6-884F84DDAE57} = {049CE8DD-43A5-484C-B079-54243E94C728}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A84992C-4EA3-4E00-BD14-1A341F47A5DB}

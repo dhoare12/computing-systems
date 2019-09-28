@@ -42,6 +42,11 @@ namespace ComputingSystems.Core
             return IntToBits(number, 16);
         }
 
+        public static bool[] FifteenBitIntToBits(int number)
+        {
+            return IntToBits(number, 15);
+        }
+
         public static int SixteenBitBitsToInt(bool[] bits)
         {
             return BitsToInt(bits, 16);
