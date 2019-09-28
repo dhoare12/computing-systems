@@ -5,9 +5,9 @@ namespace ComputingSystems.SeqLogic.ReferenceImplementation
 {
     public class Ram16k : IRam16k
     {
-        public bool[] Address { get; set; }
+        public bool[] Address { get; set; }// = BinaryUtils.FifteenBitIntToBits(0);
         public bool Load { get; set; }
-        public bool[] Input { get; set; }
+        public bool[] Input { get; set; }// = BinaryUtils.FifteenBitIntToBits(0);
 
         public bool[] Output { get; private set; } = BinaryUtils.EmptyArray(16);
 
@@ -29,6 +29,14 @@ namespace ComputingSystems.SeqLogic.ReferenceImplementation
                 }
 
                 _clock = value;
+            }
+        }
+
+        public void Preload(bool[][] values)
+        {
+            for (var i = 0; i < values.Length; i++)
+            {
+                _values[i] = values[i];
             }
         }
     }

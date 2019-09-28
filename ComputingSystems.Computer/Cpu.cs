@@ -2,17 +2,23 @@
 using System.Linq;
 using ComputingSystems.BoolArith.ReferenceImplementation;
 using ComputingSystems.CombLogic.ReferenceImplementations;
+using ComputingSystems.SeqLogic.Interfaces;
 using ComputingSystems.SeqLogic.ReferenceImplementation;
 
 namespace ComputingSystems.Computer
 {
-    public class Cpu
+    public class Cpu : IClockedComponent
     {
         public CpuInputs Inputs { get; set; }
         public CpuOutputs Outputs { get; set; }
 
-        private SixteenBitRegister D { get; set; }
-        private SixteenBitRegister A { get; set; }
+        private readonly SixteenBitRegister D = new SixteenBitRegister();
+        private readonly SixteenBitRegister A = new SixteenBitRegister();
+        
+        private readonly SixteenBitCounter Pc = new SixteenBitCounter
+        {
+            Inc = true
+        };
 
         private readonly SixteenBitMultiplexor _aluSecondInput = new SixteenBitMultiplexor();
         private readonly Not _isAInstruction = new Not();
@@ -53,6 +59,15 @@ namespace ComputingSystems.Computer
 
             _shouldWriteMem.Fill(destinationInstruction[0], isCInstruction);
             Outputs.WriteM = _shouldWriteMem.Output;
+            Outputs.AddressM = A.Output;
+
+            Outputs.Pc = Pc.Out;
+        }
+
+        public bool Clock
+        {
+            get => throw new NotImplementedException();
+            set => Pc.Clock = value;
         }
     }
 

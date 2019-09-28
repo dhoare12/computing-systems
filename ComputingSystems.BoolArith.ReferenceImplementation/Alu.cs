@@ -56,7 +56,14 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation
 
         public void Fill(bool zx, bool nx, bool zy, bool ny, bool f, bool no, bool[] x, bool[] y)
         {
-            throw new System.NotImplementedException();
+            Zx = zx;
+            Nx = nx;
+            Zy = zy;
+            Ny = ny;
+            F = f;
+            No = no;
+            X = x;
+            Y = y;
         }
 
         private static bool[] And(bool[] a, bool[] b, int noBits)
