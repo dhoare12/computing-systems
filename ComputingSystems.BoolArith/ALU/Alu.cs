@@ -12,7 +12,7 @@ namespace ComputingSystems.BoolArith.ALU
         private readonly SixteenBitAdder _adder = new SixteenBitAdder();
         private readonly SixteenBitAnder _ander = new SixteenBitAnder();
 
-        private readonly And[] _ands = Enumerable.Range(0, 16).Select(_ => new And()).ToArray();
+        private readonly And[] _ands = Enumerable.Range(0, 15).Select(_ => new And()).ToArray();
         private readonly SixteenBitNegator _negator = new SixteenBitNegator();
         private readonly SixteenBitNegator _negator2 = new SixteenBitNegator();
 
@@ -47,9 +47,10 @@ namespace ComputingSystems.BoolArith.ALU
                 _xTransform.Fill(Zx, Nx, X);
                 _yTransform.Fill(Zy, Ny, Y);
 
-                _adder.Fill(_xTransform.Output, _yTransform.Output);
                 _ander.Fill(_xTransform.Output, _yTransform.Output);
-                _mux1.Fill(_adder.Outputs, _ander.Output, F);
+                _adder.Fill(_xTransform.Output, _yTransform.Output);
+
+                _mux1.Fill(_ander.Output, _adder.Outputs, F);
 
                 _negator.Fill(_mux1.Output);
                 _mux2.Fill(_mux1.Output, _negator.Output, No);
@@ -64,15 +65,17 @@ namespace ComputingSystems.BoolArith.ALU
             {
                 _negator2.Fill(Out);
                 var output = _negator2.Output;
+
                 _ands[0].Fill(output[0], output[1]);
+
                 for (var i = 1; i < 15; i++)
                 {
                     _ands[i].Fill(_ands[i - 1].Output, output[i + 1]);
                 }
-                return _ands[15].Output;
+                return _ands[14].Output;
             }
         }
 
-        public bool Ng => Out[0];
+        public bool Ng => Out[15];
     }
 }

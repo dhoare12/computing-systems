@@ -19,25 +19,31 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.SeqLogic",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.SeqLogic.Tester", "ComputingSystems.SeqLogic.Tester\ComputingSystems.SeqLogic.Tester.csproj", "{A60171FD-188D-48D7-B947-6D58EEE6D3E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.Core", "ComputingSystems.Core\ComputingSystems.Core.csproj", "{082B2F05-A4DE-477F-A211-CEC568DA7AAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.Core", "ComputingSystems.Core\ComputingSystems.Core.csproj", "{082B2F05-A4DE-477F-A211-CEC568DA7AAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.BoolArith.Interfaces", "ComputingSystems.BoolArith.Interfaces\ComputingSystems.BoolArith.Interfaces.csproj", "{F315B487-FF55-49E9-BAC7-B625C0BBFA2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.BoolArith.Interfaces", "ComputingSystems.BoolArith.Interfaces\ComputingSystems.BoolArith.Interfaces.csproj", "{F315B487-FF55-49E9-BAC7-B625C0BBFA2F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.CombLogic.ReferenceImplementations.Tests", "ComputingSystems.CombLogic.ReferenceImplementations.Tests\ComputingSystems.CombLogic.ReferenceImplementations.Tests.csproj", "{43653B93-0453-469E-B7B5-EC6554F58FB8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.CombLogic.Tests", "ComputingSystems.CombLogic.Tests\ComputingSystems.CombLogic.Tests.csproj", "{8BA85381-185E-4312-9077-7EC3384CC72E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.SeqLogic.Interfaces", "ComputingSystems.SeqLogic.Interfaces\ComputingSystems.SeqLogic.Interfaces.csproj", "{C37BC397-397A-46F1-A7BE-9A0DCAE3EE9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.SeqLogic.Interfaces", "ComputingSystems.SeqLogic.Interfaces\ComputingSystems.SeqLogic.Interfaces.csproj", "{C37BC397-397A-46F1-A7BE-9A0DCAE3EE9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.SeqLogic.Tests", "ComputingSystems.SeqLogic.Tests\ComputingSystems.SeqLogic.Tests.csproj", "{BE1417E9-5269-444A-8B50-62EBEEDFFF3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.SeqLogic.Tests", "ComputingSystems.SeqLogic.Tests\ComputingSystems.SeqLogic.Tests.csproj", "{BE1417E9-5269-444A-8B50-62EBEEDFFF3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.SeqLogic.ReferenceImplementation", "ComputingSystems.SeqLogic.ReferenceImplementation\ComputingSystems.SeqLogic.ReferenceImplementation.csproj", "{E1AC55FF-02EA-4C87-B76C-8A8A3C2AB34A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.SeqLogic.ReferenceImplementation", "ComputingSystems.SeqLogic.ReferenceImplementation\ComputingSystems.SeqLogic.ReferenceImplementation.csproj", "{E1AC55FF-02EA-4C87-B76C-8A8A3C2AB34A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.SeqLogic.ReferenceImplementation.Tests", "ComputingSystems.SeqLogic.ReferenceImplementation.Tests\ComputingSystems.SeqLogic.ReferenceImplementation.Tests.csproj", "{4EE187BB-B824-47FB-BEC1-F0457E4A640F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.SeqLogic.ReferenceImplementation.Tests", "ComputingSystems.SeqLogic.ReferenceImplementation.Tests\ComputingSystems.SeqLogic.ReferenceImplementation.Tests.csproj", "{4EE187BB-B824-47FB-BEC1-F0457E4A640F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.BoolArith.ReferenceImplementation.Tests", "ComputingSystems.BoolArith.ReferenceImplementation.Tests\ComputingSystems.BoolArith.ReferenceImplementation.Tests.csproj", "{8C6E2293-F42C-4977-A25A-13D9B529296D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.BoolArith.ReferenceImplementation.Tests", "ComputingSystems.BoolArith.ReferenceImplementation.Tests\ComputingSystems.BoolArith.ReferenceImplementation.Tests.csproj", "{8C6E2293-F42C-4977-A25A-13D9B529296D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputingSystems.BoolArith.Tests", "ComputingSystems.BoolArith.Tests\ComputingSystems.BoolArith.Tests.csproj", "{80B28256-2765-469A-805C-D864A15B12D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputingSystems.BoolArith.Tests", "ComputingSystems.BoolArith.Tests\ComputingSystems.BoolArith.Tests.csproj", "{80B28256-2765-469A-805C-D864A15B12D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. CombLogic", "1. CombLogic", "{D9FEABC6-44DC-4B9E-ADD8-61B50C4CE2BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. BoolArith", "2. BoolArith", "{45C8E978-502D-4568-8A78-91AA3EA83AA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. SeqLogic", "3. SeqLogic", "{6204761E-AB47-4FBA-B8D7-DA43C00BC698}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -120,6 +126,25 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{83203EFD-9AD6-4AF7-B7C2-1819CA3BA274} = {D9FEABC6-44DC-4B9E-ADD8-61B50C4CE2BF}
+		{5C60258C-791D-45B2-A8AF-2647AD2F4B25} = {D9FEABC6-44DC-4B9E-ADD8-61B50C4CE2BF}
+		{86D14694-0CE0-4E76-AEF0-113324A43B8B} = {D9FEABC6-44DC-4B9E-ADD8-61B50C4CE2BF}
+		{FC5D800F-60C8-451F-9B38-8027D3BD3635} = {45C8E978-502D-4568-8A78-91AA3EA83AA9}
+		{42AD39D4-2FC0-4E7D-9F7C-197737CF6865} = {45C8E978-502D-4568-8A78-91AA3EA83AA9}
+		{136CCC15-FA71-4728-8925-FA5E012A0B1C} = {45C8E978-502D-4568-8A78-91AA3EA83AA9}
+		{5609BEA7-5A58-493B-9E75-D9AD88BD6C21} = {6204761E-AB47-4FBA-B8D7-DA43C00BC698}
+		{A60171FD-188D-48D7-B947-6D58EEE6D3E1} = {6204761E-AB47-4FBA-B8D7-DA43C00BC698}
+		{F315B487-FF55-49E9-BAC7-B625C0BBFA2F} = {45C8E978-502D-4568-8A78-91AA3EA83AA9}
+		{43653B93-0453-469E-B7B5-EC6554F58FB8} = {D9FEABC6-44DC-4B9E-ADD8-61B50C4CE2BF}
+		{8BA85381-185E-4312-9077-7EC3384CC72E} = {D9FEABC6-44DC-4B9E-ADD8-61B50C4CE2BF}
+		{C37BC397-397A-46F1-A7BE-9A0DCAE3EE9F} = {6204761E-AB47-4FBA-B8D7-DA43C00BC698}
+		{BE1417E9-5269-444A-8B50-62EBEEDFFF3D} = {6204761E-AB47-4FBA-B8D7-DA43C00BC698}
+		{E1AC55FF-02EA-4C87-B76C-8A8A3C2AB34A} = {6204761E-AB47-4FBA-B8D7-DA43C00BC698}
+		{4EE187BB-B824-47FB-BEC1-F0457E4A640F} = {6204761E-AB47-4FBA-B8D7-DA43C00BC698}
+		{8C6E2293-F42C-4977-A25A-13D9B529296D} = {45C8E978-502D-4568-8A78-91AA3EA83AA9}
+		{80B28256-2765-469A-805C-D864A15B12D7} = {45C8E978-502D-4568-8A78-91AA3EA83AA9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A84992C-4EA3-4E00-BD14-1A341F47A5DB}

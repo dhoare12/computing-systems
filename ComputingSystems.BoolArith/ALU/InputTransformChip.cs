@@ -24,10 +24,11 @@ namespace ComputingSystems.BoolArith.ALU
         {
             get
             {
-                _not.Fill(_input);
-                _mux1.Fill(_input, _not.Output, _n);
-                _mux2.Fill(_mux1.Output, _zero , _z);
-                
+                _mux1.Fill(_input, _zero, _z);
+
+                _not.Fill(_mux1.Output);
+
+                _mux2.Fill(_mux1.Output, _not.Output , _n);
 
                 return _mux2.Output;
             }

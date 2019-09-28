@@ -7,38 +7,53 @@ namespace ComputingSystems.BoolArith.Tests
     {
         public bool[] SignedIntToBits(int input, int noBits)
         {
-            var bits = Enumerable.Range(0, noBits).Select(_ => false).ToArray();
-            var max = Math.Pow(2, noBits - 1) - 1;
-            var min = -Math.Pow(2, noBits - 1);
-            if (input > max || input < min)
+            if (input <= 0)
             {
-                throw new Exception("Overflow");
-            }
-            var powers = Enumerable.Range(0, noBits).Select(x => (int)Math.Pow(2, noBits - x - 1)).ToArray();
+                var positiveValue = -input;
+                var bits = UnsignedIntToBits(positiveValue, noBits);
 
-            var absInput = Math.Abs(input);
-            var absOutput = UnsignedIntToBits(input, noBits);
-            if (input >= 0)
-            {
-                return UnsignedIntToBits(input, noBits);
-            } else
-            {
-                return UnsignedIntToBits((int)Math.Pow(2, noBits) + input, noBits);
+                var foundTrue = false;
+
+                for (var i = 0; i < bits.Length; i++)
+                {
+                    if (!foundTrue && bits[i])
+                    {
+                        foundTrue = true;
+                        continue;
+                    }
+
+                    if (foundTrue)
+                    {
+                        bits[i] = !bits[i];
+                    }
+                }
+
+                return bits;
             }
+
+            return UnsignedIntToBits(input, noBits);
         }
 
         public bool[] UnsignedIntToBits(int input, int noBits)
         {
-            var bits = Enumerable.Range(0, noBits).Select(_ => false).ToArray();
-            var powers = Enumerable.Range(0, noBits).Select(x => (int)Math.Pow(2, noBits - x - 1)).ToArray();
-            for (var x = 0; x < noBits; x++)
+            var powers = Enumerable
+                .Range(0, noBits)
+                .Select(x => (int) Math.Pow(2, x))
+                .ToArray();
+
+            var value = input;
+
+            var bits = new bool[noBits];
+
+            for (var i = powers.Length - 1; i >= 0; i--)
             {
-                if (input >= powers[x])
+                if (value >= powers[i])
                 {
-                    bits[x] = true;
-                    input -= powers[x];
+                    bits[i] = true;
+                    value -= powers[i];
                 }
             }
+
             return bits;
         }
 
@@ -58,15 +73,9 @@ namespace ComputingSystems.BoolArith.Tests
 
         public int BitsToUnsignedInt(bool[] input)
         {
-            var value = 0;
-            var integral = 0;
-            for (var i = input.Length - 1; i >=0; i--)
-            {
-                var multiplier = Math.Pow(2, integral);
-                value += (int)multiplier * (input[i] ? 1 : 0);
-                integral++;
-            }
-            return value;
+            return (int)input
+                .Select((x, i) => x ? Math.Pow(2, i) : 0)
+                .Aggregate((x, y) => x + y);
         }
     }
 }

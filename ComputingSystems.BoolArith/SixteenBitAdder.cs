@@ -17,7 +17,9 @@ namespace ComputingSystems.BoolArith
             {
                 for (var i = 0; i < 16; i++)
                 {
-                    _adders[i].Fill(i == 0 ? false : _adders[i - 1].Carry, Input1[0], Input2[0]);
+                    var carriedBit = i != 0 && _adders[i - 1].Carry;
+
+                    _adders[i].Fill(carriedBit, Input1[i], Input2[i]);
                 }
 
                 return _adders.Select(a => a.Output).ToArray();
