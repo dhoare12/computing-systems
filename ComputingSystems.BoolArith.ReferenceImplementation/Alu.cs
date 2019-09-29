@@ -5,48 +5,68 @@ using ComputingSystems.Core;
 
 namespace ComputingSystems.BoolArith.ReferenceImplementation
 {
-    public class Alu : IAlu
+    public class Alu
     {
         private readonly TwosComplementConverter _converter = new TwosComplementConverter();
-        public bool Zx { get; set; }
-        public bool Nx { get; set; }
-        public bool Zy { get; set; }
-        public bool Ny { get; set; }
-        public bool F { get; set; }
-        public bool No { get; set; }
-        public bool[] X { get; set; }
-        public bool[] Y { get; set; }
 
-        public bool[] Out
+        public Alu()
         {
-            get
-            {
-                var x = X;
-                var y = Y;
-                if (Zx)
-                {
-                    x = BinaryUtils.EmptyArray(16);
-                }
-                if (Nx)
-                {
-                    x = Negate(x);
-                }
-                if (Zy)
-                {
-                    y = BinaryUtils.EmptyArray(16);
-                }
-                if (Ny)
-                {
-                    y = Negate(y);
-                }
-                var output = F ? Add(x, y) : And(x, y, X.Length);
-                if (No)
-                {
-                    output = Negate(output);
-                }
+            Out = new ValueBus(16, x => CalculateValue()[x]);
+            Ng = new ValuePin(() => CalculateValue()[0]);
+            Zr = new ValuePin(() => CalculateValue().All(x => x == false));
+        }
 
-                return output;
+        public IPin Zx { get; set; }
+        public IPin Nx { get; set; }
+        public IPin Zy { get; set; }
+        public IPin Ny { get; set; }
+        public IPin F { get; set; }
+        public IPin No { get; set; }
+        public IBus X { get; set; }
+        public IBus Y { get; set; }
+
+        public IBus Out { get; }
+
+        public void Fill(IPin zx, IPin nx, IPin zy, IPin ny, IPin f, IPin no, IBus x, IBus y)
+        {
+            Zx.AttachInput(zx);
+            Nx.AttachInput(nx);
+            Zy.AttachInput(zy);
+            Ny.AttachInput(ny);
+            F.AttachInput(f);
+            No.AttachInput(no);
+            X.AttachInput(x);
+            Y.AttachInput(y);
+        }
+
+        private bool[] CalculateValue()
+        {
+            var x = X.Pins.Select(p => p.Value).ToArray();
+            var y = Y.Pins.Select(p => p.Value).ToArray();
+            if (Zx.Value)
+            {
+                x = BinaryUtils.EmptyArray(16);
             }
+            if (Nx.Value)
+            {
+                x = Negate(x);
+            }
+            if (Zy.Value)
+            {
+                y = BinaryUtils.EmptyArray(16);
+            }
+            if (Ny.Value)
+            {
+                y = Negate(y);
+            }
+            var output = F.Value ? Add(x, y) : And(x, y);
+
+            if (No.Value)
+            {
+                output = Negate(output);
+            }
+
+            return output;
         }
 
         private bool[] Add(bool[] x, bool[] y)
@@ -54,19 +74,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation
             return _converter.SignedIntToBits(_converter.BitsToSignedInt(x) + _converter.BitsToSignedInt(y), 16);
         }
 
-        public void Fill(bool zx, bool nx, bool zy, bool ny, bool f, bool no, bool[] x, bool[] y)
-        {
-            Zx = zx;
-            Nx = nx;
-            Zy = zy;
-            Ny = ny;
-            F = f;
-            No = no;
-            X = x;
-            Y = y;
-        }
-
-        private static bool[] And(bool[] a, bool[] b, int noBits)
+        private static bool[] And(bool[] a, bool[] b)
         {
             return a.Select((x, i) => x && b[i]).ToArray();
         }
@@ -76,7 +84,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation
             return bits.Select(b => !b).ToArray();
         }
 
-        public bool Ng => Out[0];
-        public bool Zr => Out.All(x => x == false);
+        public IPin Ng { get; }
+        public IPin Zr { get; }
     }
 }

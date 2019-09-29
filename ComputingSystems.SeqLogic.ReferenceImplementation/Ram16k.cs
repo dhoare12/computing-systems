@@ -5,9 +5,9 @@ namespace ComputingSystems.SeqLogic.ReferenceImplementation
 {
     public class Ram16k : IRam16k
     {
-        public bool[] Address { get; set; }// = BinaryUtils.FifteenBitIntToBits(0);
+        public bool[] Address { get; set; } = BinaryUtils.FifteenBitIntToBits(0);
         public bool Load { get; set; }
-        public bool[] Input { get; set; }// = BinaryUtils.FifteenBitIntToBits(0);
+        public bool[] Input { get; set; } = BinaryUtils.SixteenBitIntToBits(0);
 
         public bool[] Output { get; private set; } = BinaryUtils.EmptyArray(16);
 
@@ -21,10 +21,11 @@ namespace ComputingSystems.SeqLogic.ReferenceImplementation
             {
                 if (_clock != value)
                 {
-                    Output = _values[BinaryUtils.BitsToInt(Address, 14)];
+                    var address = BinaryUtils.BitsToInt(Address, 15);
+                    Output = _values[address];
                     if (Load)
                     {
-                        _values[BinaryUtils.BitsToInt(Address, 14)] = Input;
+                        _values[address] = Input;
                     }
                 }
 
@@ -38,6 +39,16 @@ namespace ComputingSystems.SeqLogic.ReferenceImplementation
             {
                 _values[i] = values[i];
             }
+        }
+
+        public int GetDataValue(int address)
+        {
+            return BinaryUtils.BitsToInt(_values[address], 16);
+        }
+
+        public void SetDataValue(int address, int val)
+        {
+            _values[address] = BinaryUtils.IntToBits(val, 16);
         }
     }
 }

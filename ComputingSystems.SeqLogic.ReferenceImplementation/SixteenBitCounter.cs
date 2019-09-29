@@ -5,33 +5,41 @@ using ComputingSystems.SeqLogic.Interfaces;
 
 namespace ComputingSystems.SeqLogic.ReferenceImplementation
 {
-    public class SixteenBitCounter : IClockedComponent
+    public class NBitCounter : IClockedComponent
     {
-        private bool[] _valueInner = Enumerable.Range(0, 16).Select(_ => false).ToArray();
+        private readonly int _bits;
 
-        public bool[] In { get; set; }
-        public bool Inc { get; set; }
-        public bool Load { get; set; }
-        public bool Reset { get; set; }
+        public NBitCounter(int bits)
+        {
+            _bits = bits;
+            In = new Bus(bits);
+            Out = new Bus(16);
+        }
 
-        public bool[] Out => _valueInner;
+        public IBus In { get; }
+        public IPin Inc { get; } = new Pin();
+        public IPin Load { get; } = new Pin();
+        public IPin Reset { get; } = new Pin();
+
+        public IBus Out { get; private set; }
 
         public bool Clock
         {
             get => throw new NotImplementedException();
             set
             {
-                if (Reset)
+                if (Reset.Value)
                 {
-                    _valueInner = Enumerable.Range(0, 16).Select(_ => false).ToArray();
+                    Out = new ValueBus(16, Enumerable.Range(0, _bits).Select(_ => false).ToArray());
                 }
-                else if (Load)
+                else if (Load.Value)
                 {
-                    _valueInner = In;
+                    Out = new ValueBus(16, Enumerable.Range(0, _bits).Select(x => In.Pins[x].Value).ToArray());
                 }
-                else if (Inc)
+                else if (Inc.Value)
                 {
-                    _valueInner = BinaryUtils.SixteenBitIntToBits(BinaryUtils.BitsToInt(_valueInner, 16) + 1);
+                    var outBits = BinaryUtils.IntToBits(BinaryUtils.BitsToInt(Out.Pins.Select(x => x.Value).ToArray(), _bits) + 1, _bits);
+                    Out = new ValueBus(16, outBits);
                 }
             }
         }

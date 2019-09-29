@@ -15,7 +15,7 @@ namespace ComputingSystems.Computer.Tests
         {
             var instructions = File
                 .ReadAllLines("C:\\Temp\\outputBinary")
-                .Select(x => x.ToCharArray().Select(c => c == '1').Reverse().ToArray())
+                .Select(x => x.ToCharArray().Select(c => c == '1').ToArray())
                 .ToArray();
 
             var computer = new Computer(instructions);

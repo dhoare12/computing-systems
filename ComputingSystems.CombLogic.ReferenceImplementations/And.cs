@@ -1,19 +1,24 @@
 ﻿using ComputingSystems.CombLogic.Interfaces;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class And : IAnd
+    public class And
     {
-        public bool Input1 { get; set; }
-        public bool Input2 { get; set; }
-        public bool Output => Input1 && Input2;
-
-        public void Fill(bool input1, bool input2)
+        public And()
         {
-            Input1 = input1;
-            Input2 = input2;
+            Output = new ValuePin(() => Input1.Value && Input2.Value);
+        }
+        public IPin Input1 { get; } = new Pin();
+        public IPin Input2 { get; } = new Pin();
+        public IPin Output {get; }
+
+        public void Fill(IPin input1, IPin input2)
+        {
+            Input1.AttachInput(input1);
+            Input2.AttachInput(input2);
         }
 
-        public override string ToString() => Output ? "1" : "0";
+        public override string ToString() => Output.Value ? "1" : "0";
     }
 }

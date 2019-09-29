@@ -14,13 +14,9 @@ namespace ComputingSystems.Computer.Tests
             {
                 Inputs = new CpuInputs
                 {
-                    Instruction = "0101010101010101".ToBinary().Reverse().ToArray(),
+                    Instruction = "0101010101010101".ToBinary().ToArray(),
                     InM = "1010101010101010".ToBinary(),
                     Reset = false
-                },
-                Outputs = new CpuOutputs
-                {
-                    
                 }
             };
 

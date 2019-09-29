@@ -1,10 +1,16 @@
 ﻿using ComputingSystems.CombLogic.Interfaces;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class Not : INot
+    public class Not
     {
-        public bool Input { get; set; }
-        public bool Output => !Input;
+        public Not()
+        {
+            Output = new ValuePin(() => !Input.Value);
+        }
+
+        public IPin Input = new Pin();
+        public IPin Output;
     }
 }

@@ -60,6 +60,8 @@ namespace ComputingSystems.MachLang.Assembler
                 symbolInstruction.AssignAddress(BinaryUtils.FifteenBitIntToBits(variableSymbols[symbolInstruction.Symbol]));
             }
 
+            File.WriteAllLines("C:\\Temp\\Nand2Tetris\\outputBinary.hdb", variableSymbols.Select(x => $"{x.Key}={x.Value}"));
+
             Console.ForegroundColor = ConsoleColor.White;
 
             try
@@ -69,7 +71,7 @@ namespace ComputingSystems.MachLang.Assembler
                     .Select(x => x.Bits.ToStringRepresentation())
                     .ToList();
 
-                File.WriteAllLines("C:\\Temp\\outputBinary.hack", outputLines);
+                File.WriteAllLines("C:\\Temp\\Nand2Tetris\\outputBinary.hack", outputLines);
             }
             catch (Exception ex)
             {

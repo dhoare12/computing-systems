@@ -1,34 +1,44 @@
-﻿using ComputingSystems.CombLogic.Interfaces;
+﻿using ComputingSystems.Core;
 
 namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class Multiplexor : IMultiplexor
+    public class Multiplexor
     {
-        public bool Input1 { get; set; }
-        public bool Input2 { get; set; }
-        public bool Selector { get; set; }
-        public bool Output => Selector ? Input2 : Input1;
-
-        public void Fill(bool input1, bool input2, bool selector)
+        public Multiplexor()
         {
-            Input1 = input1;
-            Input2 = input2;
-            Selector = selector;
+            Output = new ValuePin(() => Selector.Value ? Input2.Value : Input1.Value);
+        }
+
+        public IPin Input1 { get; } = new Pin();
+        public IPin Input2 { get; } = new Pin();
+        public IPin Selector { get; } = new Pin();
+        public IPin Output { get; }
+
+        public void Fill(IPin input1, IPin input2, IPin selector)
+        {
+            Input1.AttachInput(input1);
+            Input2.AttachInput(input2);
+            Selector.AttachInput(selector);
         }
     }
 
     public class SixteenBitMultiplexor
     {
-        public bool[] Input1 { get; set; }
-        public bool[] Input2 { get; set; }
-        public bool Selector { get; set; }
-        public bool[] Output => Selector ? Input2 : Input1;
-
-        public void Fill(bool[] input1, bool[] input2, bool selector)
+        public SixteenBitMultiplexor()
         {
-            Input1 = input1;
-            Input2 = input2;
-            Selector = selector;
+            Output = new ValueBus(16, x => Selector.Value ? Input2.Pins[x].Value : Input1.Pins[x].Value);
+        }
+
+        public IBus Input1 { get; } = new Bus(16);
+        public IBus Input2 { get; } = new Bus(16);
+        public IPin Selector { get; } = new Pin();
+        public IBus Output {get; }
+
+        public void Fill(IBus input1, IBus input2, IPin selector)
+        {
+            Input1.AttachInput(input1);
+            Input2.AttachInput(input2);
+            Selector.AttachInput(selector);
         }
     }
 }
