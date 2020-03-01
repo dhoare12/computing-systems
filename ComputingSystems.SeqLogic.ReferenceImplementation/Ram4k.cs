@@ -5,11 +5,11 @@ namespace ComputingSystems.SeqLogic.ReferenceImplementation
 {
     public class Ram4k : IRam4k
     {
-        public bool[] Address { get; set; }
-        public bool Load { get; set; }
-        public bool[] Input { get; set; }
+        public IBus Address { get; } = new Bus(12);
+        public IPin Load { get; } = new Pin();
+        public IBus Input { get; } = new Bus(16);
 
-        public bool[] Output { get; private set; } = BinaryUtils.EmptyArray(16);
+        public IBus Output { get; } = new Bus(16);
 
         private readonly bool[][] _values = BinaryUtils.EmptyArray(4096, 16);
 
@@ -21,10 +21,10 @@ namespace ComputingSystems.SeqLogic.ReferenceImplementation
             {
                 if (_clock != value)
                 {
-                    Output = _values[BinaryUtils.BitsToInt(Address, 12)];
-                    if (Load)
+                    Output.AttachInput(_values[BinaryUtils.BitsToInt(Address.ToBits(), 12)].ToBus());
+                    if (Load.Value)
                     {
-                        _values[BinaryUtils.BitsToInt(Address, 12)] = Input;
+                        _values[BinaryUtils.BitsToInt(Address.ToBits(), 12)] = Input.ToBits();
                     }
                 }
 

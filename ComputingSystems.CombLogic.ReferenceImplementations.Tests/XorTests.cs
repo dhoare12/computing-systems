@@ -23,9 +23,9 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
 
         private void VerifyOutput(bool input1, bool input2, bool expectedOutput)
         {
-            _xor.Input1 = input1;
-            _xor.Input2 = input2;
-            Assert.AreEqual(_xor.Output, expectedOutput);
+            _xor.Input1.AttachInput(input1.ToPin());
+            _xor.Input2.AttachInput(input2.ToPin());
+            Assert.AreEqual(_xor.Output.Value, expectedOutput);
         }
     }
 }

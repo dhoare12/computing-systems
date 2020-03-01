@@ -3,7 +3,7 @@ using ComputingSystems.Core;
 
 namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class And
+    public class And : IAnd
     {
         public And()
         {

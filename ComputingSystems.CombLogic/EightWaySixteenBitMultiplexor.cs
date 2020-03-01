@@ -8,22 +8,31 @@ namespace ComputingSystems.CombLogic
     {
         private readonly IEightWayMultiplexor[] _multiplexors = TypeProvider.GetArray<IEightWayMultiplexor>(16);
 
-        public bool[][] Input { get; set; } = BinaryUtils.EmptyArray(8, 16);
-
-        public bool[] Selector { get; set; } = BinaryUtils.EmptyArray(3);
-
-        public bool[] Output
+        public EightWaySixteenBitMultiplexor()
         {
-            get
+            for (var i = 0; i < 16; i++)
             {
-                for (var i = 0; i < 16; i++)
+                for (var j = 0; j < 8; j++)
                 {
-                    _multiplexors[i].Input = Input.Select(input => input[i]).ToArray();
-                    _multiplexors[i].Selector = Selector;
+                    _multiplexors[i].Input[j].AttachInput(Input[j][i]);
                 }
-
-                return _multiplexors.Select(m => m.Output).ToArray();
+                _multiplexors[i].Selector.AttachInputs(Selector);
             }
+        }
+
+        public IPin[][] Input { get; } = Enumerable.Range(0, 8).Select(_ => Pin.Array(16)).ToArray();
+
+        public IPin[] Selector { get; } = Pin.Array(3);
+
+        public IPin[] Output => _multiplexors.Select(m => m.Output).ToArray();
+        
+        public void Fill(IPin[][] input, IPin[] selector)
+        {
+            for (var i = 0; i < 8; i++)
+            {
+                Input[i].AttachInputs(input[i]);
+            }
+            Selector.AttachInputs(selector);
         }
     }
 }

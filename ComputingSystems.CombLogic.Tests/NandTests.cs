@@ -2,7 +2,7 @@ using ComputingSystems.CombLogic.Interfaces;
 using ComputingSystems.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
+namespace ComputingSystems.CombLogic.Tests
 {
     [TestClass]
     public class NandTests
@@ -23,9 +23,9 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
 
         private void VerifyOutput(bool input1, bool input2, bool expectedOutput)
         {
-            _nand.Input1 = input1;
-            _nand.Input2 = input2;
-            Assert.AreEqual(_nand.Output, expectedOutput);
+            _nand.Input1.AttachInput(input1.ToPin());
+            _nand.Input2.AttachInput(input2.ToPin());
+            Assert.AreEqual(_nand.Output.Value, expectedOutput);
         }
     }
 }

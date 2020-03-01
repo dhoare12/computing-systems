@@ -15,6 +15,8 @@ namespace ComputingSystems.Core
         IPin[] Pins { get; }
         int Width { get; }
         void AttachInput(IBus bus);
+
+        bool[] ToBits();
     }
 
     public class Bus : IBus
@@ -37,7 +39,7 @@ namespace ComputingSystems.Core
         {
             if (bus.Width != Width)
             {
-                throw new Exception("Bus width mismatch");
+                throw new Exception($"Bus width mismatch - attaching {bus.Width}-bus to {Width}-bus");
             }
 
             for (var i = 0; i < Width; i++)
@@ -45,6 +47,8 @@ namespace ComputingSystems.Core
                 Pins[i].AttachInput(bus.Pins[i]);
             }
         }
+
+        public bool[] ToBits() => Pins.Select(x => x.Value).ToArray();
     }
 
     public class ValueBus : IBus
@@ -67,6 +71,8 @@ namespace ComputingSystems.Core
         {
             throw new NotSupportedException("Cannot attach input to a value bus");
         }
+
+        public bool[] ToBits() => Pins.Select(x => x.Value).ToArray();
     }
 
     public class ValuePin : IPin
@@ -76,6 +82,11 @@ namespace ComputingSystems.Core
         public ValuePin(Func<bool> func)
         {
             _func = func;
+        }
+
+        public ValuePin(bool constant)
+        {
+            _func = () => constant;
         }
 
         public bool Value => _func();

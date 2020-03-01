@@ -1,11 +1,29 @@
 ﻿using ComputingSystems.CombLogic.ReferenceImplementations;
 using System.Linq;
 using ComputingSystems.BoolArith.Interfaces;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.BoolArith.ALU
 {
-    public class Alu : IAlu
+    public class Alu
     {
+        public Alu()
+        {
+            _negator2.Fill(Out);
+            var output = _negator2.Output;
+
+            _ands[0].Fill(output[0], output[1]);
+
+            _ander.Fill(_xTransform.Output, _yTransform.Output);
+            _adder.Fill(_xTransform.Output, _yTransform.Output);
+            _negator.Fill(_mux1.Output);
+
+            for (var i = 1; i < 15; i++)
+            {
+                _ands[i].Fill(_ands[i - 1].Output, output[i + 1]);
+            }
+        }
+
         private readonly InputTransformChip _xTransform = new InputTransformChip(),
             _yTransform = new InputTransformChip();
 
@@ -19,63 +37,27 @@ namespace ComputingSystems.BoolArith.ALU
         private readonly SixteenBitMux _mux1 = new SixteenBitMux();
         private readonly SixteenBitMux _mux2 = new SixteenBitMux();
 
-        public bool Zx { get; set; }
-        public bool Nx { get; set; }
-        public bool Zy { get; set; }
-        public bool Ny { get; set; }
-        public bool F { get; set; }
-        public bool No { get; set; }
-        public bool[] X { get; set; }
-        public bool[] Y { get; set; }
+        /*public IPin Zx { get; set; }
+        public IPin Nx { get; set; }
+        public IPin Zy { get; set; }
+        public IPin Ny { get; set; }
+        public IPin F { get; set; }
+        public IPin No { get; set; }
+        public IPin[] X { get; set; }
+        public IPin[] Y { get; set; }*/
 
-        public void Fill(bool zx, bool nx, bool zy, bool ny, bool f, bool no, bool[] x, bool[] y)
+        public void Fill(IPin zx, IPin nx, IPin zy, IPin ny, IPin f, IPin no, IPin[] x, IPin[] y)
         {
-            Zx = zx;
-            Nx = nx;
-            Zy = zy;
-            Ny = ny;
-            F = f;
-            No = no;
-            X = x;
-            Y = y;
+            _xTransform.Fill(zx, nx, x);
+            _yTransform.Fill(zy, ny, y);
+            _mux1.Fill(_ander.Output, _adder.Outputs, f);
+            _mux2.Fill(_mux1.Output, _negator.Output, no);
         }
 
-        public bool[] Out
-        {
-            get
-            {
-                _xTransform.Fill(Zx, Nx, X);
-                _yTransform.Fill(Zy, Ny, Y);
+        public IPin[] Out => _mux2.Output;
 
-                _ander.Fill(_xTransform.Output, _yTransform.Output);
-                _adder.Fill(_xTransform.Output, _yTransform.Output);
+        public IPin Zr => _ands[14].Output;
 
-                _mux1.Fill(_ander.Output, _adder.Outputs, F);
-
-                _negator.Fill(_mux1.Output);
-                _mux2.Fill(_mux1.Output, _negator.Output, No);
-
-                return _mux2.Output;
-            }
-        }
-
-        public bool Zr
-        {
-            get
-            {
-                _negator2.Fill(Out);
-                var output = _negator2.Output;
-
-                _ands[0].Fill(output[0], output[1]);
-
-                for (var i = 1; i < 15; i++)
-                {
-                    _ands[i].Fill(_ands[i - 1].Output, output[i + 1]);
-                }
-                return _ands[14].Output;
-            }
-        }
-
-        public bool Ng => Out[15];
+        public IPin Ng => Out[15];
     }
 }

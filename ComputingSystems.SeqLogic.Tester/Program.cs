@@ -1,4 +1,5 @@
 ﻿using System;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.SeqLogic.Tester
 {
@@ -8,7 +9,7 @@ namespace ComputingSystems.SeqLogic.Tester
         static void Main(string[] args)
         {
             _ram = new Ram16k();
-            _ram.Address = "00 000 000 000 000".ToBinary();
+            _ram.Address.AttachInput("00 000 000 000 000".ToBinary().ToBus());
             _ram.Clock = false;
             ReadAndLogAll();
             Write("10 000 000 000 000", "1010101010101010".ToBinary());
@@ -49,17 +50,17 @@ namespace ComputingSystems.SeqLogic.Tester
 
         private static bool[] Read(string address)
         {
-            _ram.Address = address.ToBinary();
-            _ram.Load = false;
+            _ram.Address.AttachInput(address.ToBinary().ToBus());
+            _ram.Load.AttachInput(false.ToPin());
             _ram.Clock = !_ram.Clock;
-            return _ram.Output;
+            return _ram.Output.ToBits();
         }
 
         private static void Write(string address, bool[] value)
         {
-            _ram.Address = address.ToBinary();
-            _ram.Input = value;
-            _ram.Load = true;
+            _ram.Address.AttachInput(address.ToBinary().ToBus());
+            _ram.Input.AttachInput(value.ToBus());
+            _ram.Load.AttachInput(true.ToPin());
             _ram.Clock = !_ram.Clock;
         }
     }

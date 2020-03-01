@@ -6,24 +6,33 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
     public class EightWaySixteenBitMultiplexor : IEightWaySixteenBitMultiplexor
     {
+
+        public EightWaySixteenBitMultiplexor()
+        {
+            for (var i = 0; i < 16; i++)
+            {
+                for (var j = 0; j < 8; j++)
+                {
+                    _multiplexors[i].Input[j].AttachInput(Input[j][i]);
+                }
+                _multiplexors[i].Selector.AttachInputs(Selector);
+            }
+        }
         private readonly IEightWayMultiplexor[] _multiplexors = TypeProvider.GetArray<IEightWayMultiplexor>(16);
 
-        public bool[][] Input { get; set; } = BinaryUtils.EmptyArray(8, 16);
+        public IPin[][] Input { get; } = Enumerable.Range(0, 8).Select(_ => Pin.Array(16)).ToArray();
 
-        public bool[] Selector { get; set; } = BinaryUtils.EmptyArray(3);
+        public IPin[] Selector { get; } = Pin.Array(3);
 
-        public bool[] Output
+        public IPin[] Output => _multiplexors.Select(m => m.Output).ToArray();
+
+        public void Fill(IPin[][] input, IPin[] selector)
         {
-            get
+            for (var i = 0; i < 8; i++)
             {
-                for (var i = 0; i < 16; i++)
-                {
-                    _multiplexors[i].Input = Input.Select(input => input[i]).ToArray();
-                    _multiplexors[i].Selector = Selector;
-                }
-
-                return _multiplexors.Select(m => m.Output).ToArray();
+                Input[i].AttachInputs(input[i]);
             }
+            Selector.AttachInputs(selector);
         }
     }
 }

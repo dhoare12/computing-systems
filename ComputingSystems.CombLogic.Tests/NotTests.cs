@@ -2,7 +2,7 @@ using ComputingSystems.CombLogic.Interfaces;
 using ComputingSystems.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
+namespace ComputingSystems.CombLogic.Tests
 {
     [TestClass]
     public class NotTests
@@ -21,8 +21,8 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
 
         private void VerifyOutput(bool input, bool expectedOutput)
         {
-            _not.Input = input;
-            Assert.AreEqual(_not.Output, expectedOutput);
+            _not.Input.AttachInput(input.ToPin());
+            Assert.AreEqual(_not.Output.Value, expectedOutput);
         }
     }
 }

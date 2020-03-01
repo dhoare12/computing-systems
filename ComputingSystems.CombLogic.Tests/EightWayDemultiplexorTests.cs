@@ -2,7 +2,7 @@ using ComputingSystems.CombLogic.Interfaces;
 using ComputingSystems.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
+namespace ComputingSystems.CombLogic.Tests
 {
     [TestClass]
     public class EightWayDemultiplexorTests
@@ -36,9 +36,9 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
 
         private void VerifyOutput(bool input, string selector, string expectedOutput)
         {
-            _demultiplexor.Input = input;
-            _demultiplexor.Selector = selector.ToBinary();
-            Assert.AreEqual(_demultiplexor.Output.ToBinaryString(), expectedOutput);
+            _demultiplexor.Input.AttachInput(input.ToPin());
+            _demultiplexor.Selector.AttachInputs(selector.ToBinary().ToPins());
+            Assert.AreEqual(_demultiplexor.Output.Values().ToBinaryString(), expectedOutput);
         }
     }
 }

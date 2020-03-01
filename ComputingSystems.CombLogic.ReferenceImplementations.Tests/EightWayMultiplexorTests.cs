@@ -28,9 +28,9 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
 
         private void VerifyOutput(string selector, bool expectedOutput)
         {
-            _multiplexor.Input = TestInput.ToBinary();
-            _multiplexor.Selector = selector.ToBinary();
-            Assert.AreEqual(_multiplexor.Output, expectedOutput);
+            _multiplexor.Input.AttachInputs(TestInput.ToBinary().ToPins());
+            _multiplexor.Selector.AttachInputs(selector.ToBinary().ToPins());
+            Assert.AreEqual(_multiplexor.Output.Value, expectedOutput);
         }
     }
 }

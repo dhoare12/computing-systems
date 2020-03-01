@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ComputingSystems.Core;
 using ComputingSystems.SeqLogic.ReferenceImplementation;
 
@@ -29,19 +30,19 @@ namespace ComputingSystems.Computer
             _rom.Clock = _clock;
             _cpu.Clock = _clock;
 
-            _cpu.Inputs.Instruction = _rom.Output;
-            _cpu.Inputs.InM = _dataMemory.Output;
-            _cpu.Inputs.Reset = false; // TODO
+            _cpu.Inputs.Instruction.AttachInput(_rom.Output);
+            _cpu.Inputs.InM.AttachInput(_dataMemory.Output);
+            _cpu.Inputs.Reset.AttachInput(new ValuePin(false)); // TODO
 
             
 
             var cpuOutputs = _cpu.Outputs;
 
-            _rom.Address = cpuOutputs.Pc;
+            _rom.Address.AttachInput(cpuOutputs.Pc);
 
-            _dataMemory.Address = cpuOutputs.AddressM;
-            _dataMemory.Input = cpuOutputs.OutM;
-            _dataMemory.Load = cpuOutputs.WriteM;
+            _dataMemory.Address.AttachInput(cpuOutputs.AddressM);
+            _dataMemory.Input.AttachInput(cpuOutputs.OutM);
+            _dataMemory.Load.AttachInput(cpuOutputs.WriteM);
 
             _cpu.Refresh();
         }
@@ -56,14 +57,14 @@ namespace ComputingSystems.Computer
             _dataMemory.SetDataValue(address, val);
         }
 
-        public int ProgramCounter => BinaryUtils.BitsToInt(_cpu.Outputs.Pc, 15);
+        public int ProgramCounter => BinaryUtils.BitsToInt(_cpu.Outputs.Pc.ToBits(), 15);
 
-        public int A => BinaryUtils.BitsToInt(_cpu.A.Output, 16);
+        public int A => BinaryUtils.BitsToInt(_cpu.A.Output.ToBits(), 16);
 
-        public int D => BinaryUtils.BitsToInt(_cpu.D.Output, 16);
+        public int D => BinaryUtils.BitsToInt(_cpu.D.Output.ToBits(), 16);
 
         public string CurrentInstruction => CurrentInstructionBits.ToBinaryString();
 
-        public bool[] CurrentInstructionBits => _cpu.Inputs.Instruction;
+        public bool[] CurrentInstructionBits => _cpu.Inputs.Instruction.ToBits();
     }
 }

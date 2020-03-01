@@ -12,17 +12,16 @@ namespace ComputingSystems.Computer.Tests
         {
             var cpu = new Cpu
             {
-                Inputs = new CpuInputs
-                {
-                    Instruction = "0101010101010101".ToBinary().ToArray(),
-                    InM = "1010101010101010".ToBinary(),
-                    Reset = false
-                }
+                Inputs = new CpuInputs()
             };
+
+            cpu.Inputs.Instruction.AttachInput("0101010101010101".ToBinary().ToBus());
+            cpu.Inputs.InM.AttachInput("1010101010101010".ToBinary().ToBus());
+            cpu.Inputs.Reset.AttachInput(false.ToPin());
 
             cpu.Refresh();
 
-            Assert.IsFalse(cpu.Outputs.WriteM);
+            Assert.IsFalse(cpu.Outputs.WriteM.Value);
 
 
         }

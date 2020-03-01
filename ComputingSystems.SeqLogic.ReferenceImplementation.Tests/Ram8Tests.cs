@@ -1,5 +1,4 @@
 using ComputingSystems.CombLogic.ReferenceImplementations;
-using ComputingSystems.SeqLogic.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ComputingSystems.SeqLogic.ReferenceImplementation.Tests

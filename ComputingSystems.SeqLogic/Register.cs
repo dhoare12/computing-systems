@@ -6,23 +6,27 @@ namespace ComputingSystems.SeqLogic
 {
     public class Register : IClockedComponent
     {
+        public Register()
+        {
+            // Initialise to false
+            Input.AttachInput(false.ToPin());
+
+            _mux.Fill(_dff.Output, Input, Load);
+            _dff.Input.AttachInput(_mux.Output);
+        }
+
         private readonly IMultiplexor _mux = TypeProvider.Get<IMultiplexor>();
         private readonly DataFlipFlop _dff = new DataFlipFlop();
 
         public bool Clock
         {
             get => _dff.Clock;
-            set
-            {
-                _mux.Fill(_dff.Output, Input, Load);
-                _dff.Input = _mux.Output;
-                _dff.Clock = value;
-            }
+            set => _dff.Clock = value;
         }
 
-        public bool Input { get; set; }
-        public bool Load { get; set; }
+        public IPin Input { get; } = new Pin();
+        public IPin Load { get; } = new Pin();
 
-        public bool Output => _dff.Output;
+        public IPin Output => _dff.Output;
     }
 }

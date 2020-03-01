@@ -1,12 +1,14 @@
-﻿namespace ComputingSystems.CombLogic.Interfaces
+﻿using ComputingSystems.Core;
+
+namespace ComputingSystems.CombLogic.Interfaces
 {
     public interface IDemultiplexor
     {
-        bool Input { get; set; }
-        bool Selector { get; set; }
-        bool Output1 { get; }
-        bool Output2 { get; }
+        IPin Input { get;  }
+        IPin Selector { get; }
+        IPin Output1 { get; }
+        IPin Output2 { get; }
 
-        void Fill(bool input, bool selector);
+        void Fill(IPin input, IPin selector);
     }
 }

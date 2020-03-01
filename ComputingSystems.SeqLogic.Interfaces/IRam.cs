@@ -1,13 +1,14 @@
 ﻿using System;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.SeqLogic.Interfaces
 {
     public interface IRam : IClockedComponent
     {
-        bool[] Address { get; set; }
-        bool Load { get; set; }
-        bool[] Input { get; set; }
-        bool[] Output { get; }
+        IBus Address { get; }
+        IPin Load { get; }
+        IBus Input { get; }
+        IBus Output { get; }
     }
 
     public interface IRam8 : IRam { }

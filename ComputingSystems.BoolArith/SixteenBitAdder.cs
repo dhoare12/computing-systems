@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.BoolArith
 {
@@ -6,27 +7,34 @@ namespace ComputingSystems.BoolArith
     {
         private readonly FullAdder[] _adders = Enumerable.Range(0, 16).Select(_ => new FullAdder()).ToArray();
 
-        public void Fill(bool[] input1, bool[] input2)
+        public SixteenBitAdder()
         {
-            Input1 = input1;
-            Input2 = input2;
+            for (var i = 0; i < 16; i++)
+            {
+                var carriedBit = i == 0 ? new ValuePin(() => false) : _adders[i - 1].Carry;
+
+                _adders[i].Fill(carriedBit, Input1[i], Input2[i]);
+            }
         }
-        public bool[] Outputs
+
+        public void Fill(IPin[] input1, IPin[] input2)
+        {
+            for (var i = 0; i < 16; i++)
+            {
+                Input1[i].AttachInput(input1[i]);
+                Input2[i].AttachInput(input2[i]);
+            }
+        }
+
+        public IPin[] Outputs
         {
             get
             {
-                for (var i = 0; i < 16; i++)
-                {
-                    var carriedBit = i != 0 && _adders[i - 1].Carry;
-
-                    _adders[i].Fill(carriedBit, Input1[i], Input2[i]);
-                }
-
                 return _adders.Select(a => a.Output).ToArray();
             }
         }
 
-        public bool[] Input1 { get; private set; }
-        public bool[] Input2 { get; private set; }
+        public IPin[] Input1 { get; }= Enumerable.Range(0, 16).Select(_ => new Pin()).ToArray();
+        public IPin[] Input2 { get; }= Enumerable.Range(0, 16).Select(_ => new Pin()).ToArray();
     }
 }

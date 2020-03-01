@@ -5,28 +5,25 @@ namespace ComputingSystems.CombLogic
 {
     public class And : IAnd
     {
+        public And()
+        {
+            _nand.Fill(Input1, Input2);
+            _not.Input.AttachInput(_nand.Output);
+        }
         private readonly INand _nand = TypeProvider.Get<INand>();
         private readonly INot _not = TypeProvider.Get<INot>();
 
-        public bool Input1 { get; set; }
-        public bool Input2 { get; set; }
+        public IPin Input1 { get; } = new Pin();
+        public IPin Input2 { get; } = new Pin();
 
-        public bool Output
+        public IPin Output => _not.Output;
+
+        public void Fill(IPin input1, IPin input2)
         {
-            get
-            {
-                _nand.Fill(Input1, Input2);
-                _not.Input = _nand.Output;
-                return _not.Output;
-            }
+            Input1.AttachInput(input1);
+            Input2.AttachInput(input2);
         }
 
-        public void Fill(bool input1, bool input2)
-        {
-            Input1 = input1;
-            Input2 = input2;
-        }
-
-        public override string ToString() => Output ? "1" : "0";
+        public override string ToString() => Output.Value ? "1" : "0";
     }
 }

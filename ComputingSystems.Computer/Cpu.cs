@@ -11,6 +11,10 @@ namespace ComputingSystems.Computer
 {
     public class Cpu : IClockedComponent
     {
+        public Cpu()
+        {
+            Pc.Inc.AttachInput(new ValuePin(true));
+        }
         public CpuInputs Inputs { get; set; }
 
         private readonly CpuOutputs _outputsInner = new CpuOutputs();
@@ -20,10 +24,7 @@ namespace ComputingSystems.Computer
         public readonly SixteenBitRegister D = new SixteenBitRegister();
         public readonly SixteenBitRegister A = new SixteenBitRegister();
 
-        public readonly NBitCounter Pc = new NBitCounter(15)
-        {
-            Inc = true
-        };
+        public readonly NBitCounter Pc = new NBitCounter(15);
 
         private readonly SixteenBitMultiplexor _aluSecondInput = new SixteenBitMultiplexor();
 
@@ -90,8 +91,8 @@ namespace ComputingSystems.Computer
 
             var outNeg = _alu.Ng;
             var outZero = _alu.Zr;
-            _outNotNeg.Input = outNeg;
-            _outNotZero.Input = outZero;
+            _outNotNeg.Input.AttachInput(outNeg);
+            _outNotZero.Input.AttachInput(outZero);
             _outPos.Fill(_outNotNeg.Output, _outNotZero.Output);
             var outPos = _outPos.Output;
 

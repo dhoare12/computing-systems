@@ -7,15 +7,30 @@ namespace ComputingSystems.SeqLogic
 {
     public class Ram8 : IRam8
     {
+        public Ram8()
+        {
+            _multiplexor.Fill(_registers.Select(r => r.Output.Pins).ToArray(), Address.Pins);
+
+            _deMux.Selector.AttachInputs(Address.Pins);
+            _deMux.Input.AttachInput(Load);
+
+            for (var i = 0; i < _registers.Length; i++)
+            {
+                var register = _registers[i];
+                register.Input.AttachInput(Input);
+                register.Load.AttachInput(_deMux.Output[i]);
+            }
+        }
+
         private readonly NBitRegister[] _registers = Enumerable.Range(0, 8).Select(_ => new NBitRegister(16)).ToArray();
         private readonly IEightWaySixteenBitMultiplexor _multiplexor = TypeProvider.Get<IEightWaySixteenBitMultiplexor>();
 
         private readonly IEightWayDemultiplexor _deMux = TypeProvider.Get<IEightWayDemultiplexor>();
 
-        public bool[] Address { get; set; }
+        public IBus Address { get; } = new Bus(3);
 
-        public bool Load { get; set; }
-        public bool[] Input { get; set; }
+        public IPin Load { get; } = new Pin();
+        public IBus Input { get; } = new Bus(16);
 
         private bool _clock;
         public bool Clock
@@ -23,24 +38,6 @@ namespace ComputingSystems.SeqLogic
             get => _clock;
             set
             {
-                _multiplexor.Input = _registers.Select(r => r.Output).ToArray();
-                _multiplexor.Selector = Address;
-                
-                foreach (var register in _registers)
-                {
-                    register.Input = Input;
-                    register.Load = false;
-                }
-
-                _deMux.Selector = Address;
-                _deMux.Input = Load;
-
-                for (var i = 0; i < _registers.Length; i++)
-                {
-                    _registers[i].Input = Input;
-                    _registers[i].Load = _deMux.Output[i];
-                }
-
                 _clock = value;
                 foreach (var register in _registers)
                 {
@@ -49,7 +46,7 @@ namespace ComputingSystems.SeqLogic
             }
         }
 
-        public bool[] Output => _multiplexor.Output;
+        public IBus Output => new Bus(_multiplexor.Output);
 
         public static Ram8[] ArrayOf(int count) => Enumerable.Range(0, 8).Select(_ => new Ram8()).ToArray();
     }

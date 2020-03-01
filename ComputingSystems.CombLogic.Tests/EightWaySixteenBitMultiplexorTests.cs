@@ -3,7 +3,7 @@ using ComputingSystems.CombLogic.Interfaces;
 using ComputingSystems.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
+namespace ComputingSystems.CombLogic.Tests
 {
     [TestClass]
     public class EightWaySixteenBitMultiplexorTests
@@ -29,9 +29,15 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
 
         private void VerifyOutput(string selector, int expectedOutput)
         {
-            _multiplexor.Input = TestInput.Select(BinaryUtils.SixteenBitIntToBits).ToArray();
-            _multiplexor.Selector = selector.ToBinary();
-            Assert.AreEqual(BinaryUtils.SixteenBitBitsToInt(_multiplexor.Output), expectedOutput);
+            var inputs = TestInput.Select(BinaryUtils.SixteenBitIntToBits).ToArray();
+
+            for (var i = 0; i < 8; i++)
+            {
+                _multiplexor.Input[i].AttachInputs(inputs[i].ToPins());
+            }
+            
+            _multiplexor.Selector.AttachInputs(selector.ToBinary().ToPins());
+            Assert.AreEqual(BinaryUtils.SixteenBitBitsToInt(_multiplexor.Output.Values()), expectedOutput);
         }
     }
 }

@@ -1,15 +1,17 @@
-﻿using ComputingSystems.Core;
+﻿using System.Linq;
+using ComputingSystems.Core;
 using ComputingSystems.SeqLogic.Interfaces;
 
 namespace ComputingSystems.SeqLogic.ReferenceImplementation
 {
     public class Ram16k : IRam16k
     {
-        public bool[] Address { get; set; } = BinaryUtils.FifteenBitIntToBits(0);
-        public bool Load { get; set; }
-        public bool[] Input { get; set; } = BinaryUtils.SixteenBitIntToBits(0);
+        public IBus Address { get; } = new Bus(14);
+        public IPin Load { get; } = new Pin();
+        public IBus Input { get; } = new Bus(16);
+        public IBus Output => new ValueBus(16, _currentValue);
 
-        public bool[] Output { get; private set; } = BinaryUtils.EmptyArray(16);
+        private bool[] _currentValue;
 
         private readonly bool[][] _values = BinaryUtils.EmptyArray(16384, 16);
 
@@ -21,11 +23,11 @@ namespace ComputingSystems.SeqLogic.ReferenceImplementation
             {
                 if (_clock != value)
                 {
-                    var address = BinaryUtils.BitsToInt(Address, 15);
-                    Output = _values[address];
-                    if (Load)
+                    var address = BinaryUtils.BitsToInt(Address.Pins.Select(x => x.Value).ToArray(), 14);
+                    _currentValue = _values[address];
+                    if (Load.Value)
                     {
-                        _values[address] = Input;
+                        _values[address] = Input.Pins.Select(x => x.Value).ToArray();
                     }
                 }
 

@@ -3,7 +3,7 @@ using ComputingSystems.Core;
 using ComputingSystems.SeqLogic.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ComputingSystems.SeqLogic.Tests
+namespace ComputingSystems.SeqLogic.ReferenceImplementation.Tests
 {
     public class RamTest
     {

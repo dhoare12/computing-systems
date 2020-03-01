@@ -3,7 +3,7 @@ using ComputingSystems.Core;
 
 namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class Or
+    public class Or : IOr
     {
         public Or()
         {

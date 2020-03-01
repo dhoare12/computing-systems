@@ -14,7 +14,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "101010", x: 10, y: 20);
 
-            Assert.AreEqual(TwosComplement.BitsToSignedInt(alu.Out), 0);
+            Assert.AreEqual(TwosComplement.BitsToSignedInt(alu.Out.ToBits()), 0);
             Assert.AreEqual(alu.Zr, true);
             Assert.AreEqual(alu.Ng, false);
         }
@@ -24,7 +24,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "111111", x: 10, y: 20);
 
-            Assert.AreEqual(1, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(1, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -34,7 +34,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "111010", x: 10, y: 20);
 
-            Assert.AreEqual(-1, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(-1, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(true, alu.Ng);
         }
@@ -44,7 +44,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "001100", x: 10, y: 20);
 
-            Assert.AreEqual(10, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(10, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -54,7 +54,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "110000", x: 10, y: 20);
 
-            Assert.AreEqual(20, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(20, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -64,7 +64,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "001101", x: 10, y: 20);
 
-            Assert.AreEqual(-11, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(-11, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(true, alu.Ng);
         }
@@ -74,7 +74,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "110001", x: 10, y: 20);
 
-            Assert.AreEqual(-21, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(-21, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(true, alu.Ng);
         }
@@ -84,7 +84,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "001111", x: 10, y: 20);
 
-            Assert.AreEqual(-10, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(-10, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(true, alu.Ng);
         }
@@ -94,7 +94,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "110011", x: 10, y: 20);
 
-            Assert.AreEqual(-20, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(-20, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(true, alu.Ng);
         }
@@ -104,7 +104,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "011111", x: 10, y: 20);
 
-            Assert.AreEqual(11, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(11, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -114,7 +114,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "110111", x: 10, y: 20);
 
-            Assert.AreEqual(21, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(21, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -124,7 +124,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "001110", x: 10, y: 20);
 
-            Assert.AreEqual(9, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(9, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -134,7 +134,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "110010", x: 10, y: 20);
 
-            Assert.AreEqual(19, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(19, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -144,7 +144,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "000010", x: 10, y: 20);
 
-            Assert.AreEqual(30, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(30, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -154,7 +154,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "010011", x: 10, y: 20);
 
-            Assert.AreEqual(-10, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(-10, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(true, alu.Ng);
         }
@@ -164,7 +164,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "000111", x: 10, y: 20);
 
-            Assert.AreEqual(10, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(10, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -174,7 +174,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "000000", x: 10, y: 22);
 
-            Assert.AreEqual(2, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(2, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -184,7 +184,7 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         {
             var alu = new Alu().WithValues(flags: "010101", x: 10, y: 22);
 
-            Assert.AreEqual(30, TwosComplement.BitsToSignedInt(alu.Out));
+            Assert.AreEqual(30, TwosComplement.BitsToSignedInt(alu.Out.ToBits()));
             Assert.AreEqual(false, alu.Zr);
             Assert.AreEqual(false, alu.Ng);
         }
@@ -196,14 +196,14 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation.Tests
         public static Alu WithValues(this Alu alu, string flags, int x, int y)
         {
             var flagBits = flags.ToCharArray().Select(b => b == '1').ToArray();
-            alu.Zx = flagBits[0];
-            alu.Nx = flagBits[1];
-            alu.Zy = flagBits[2];
-            alu.Ny = flagBits[3];
-            alu.F = flagBits[4];
-            alu.No = flagBits[5];
-            alu.X = TwosComplement.SignedIntToBits(x, 16);
-            alu.Y = TwosComplement.SignedIntToBits(y, 16);
+            alu.Zx.AttachInput(new ValuePin(flagBits[0]));
+            alu.Nx.AttachInput(new ValuePin(flagBits[1]));
+            alu.Zy.AttachInput(new ValuePin(flagBits[2]));
+            alu.Ny.AttachInput(new ValuePin(flagBits[3]));
+            alu.F.AttachInput(new ValuePin(flagBits[4]));
+            alu.No.AttachInput(new ValuePin(flagBits[5]));
+            alu.X.AttachInput(new ValueBus(16, TwosComplement.SignedIntToBits(x, 16)));
+            alu.Y.AttachInput(new ValueBus(16, TwosComplement.SignedIntToBits(y, 16)));
 
             return alu;
         }

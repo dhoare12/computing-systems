@@ -1,30 +1,21 @@
 ﻿using System.Linq;
 using ComputingSystems.CombLogic.ReferenceImplementations;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.BoolArith
 {
     public class SixteenBitNegator
     {
-        private bool[] _input;
-
         private readonly Not[] _not = Enumerable.Range(0, 16).Select(_ => new Not()).ToArray();
 
-        public void Fill(bool[] input)
+        public void Fill(IPin[] input)
         {
-            _input = input;
-        }
-
-        public bool[] Output
-        {
-            get
+            for (var i = 0; i < 16; i++)
             {
-                for (var i = 0; i < 16; i++)
-                {
-                    _not[i].Input = _input[i];
-                }
-
-                return _not.Select(n => n.Output).ToArray();
+                _not[i].Input.AttachInput(input[i]);
             }
         }
+
+        public IPin[] Output => _not.Select(n => n.Output).ToArray();
     }
 }

@@ -1,32 +1,25 @@
 ﻿using System.Linq;
 using ComputingSystems.CombLogic.ReferenceImplementations;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.BoolArith
 {
     public class SixteenBitMux
     {
-        private bool[] _x;
-        private bool[] _y;
-        private bool _control;
-
         private readonly Multiplexor[] _mux = Enumerable.Range(0, 16).Select(_ => new Multiplexor()).ToArray();
 
-        public void Fill(bool[] x, bool[] y, bool control)
+        public void Fill(IPin[] x, IPin[] y, IPin control)
         {
-            _x = x;
-            _y = y;
-            _control = control;
+            for (var i = 0; i < 16; i++)
+            {
+                _mux[i].Fill(x[i], y[i], control);
+            }
         }
 
-        public bool[] Output
+        public IPin[] Output
         {
             get
             {
-                for (var i = 0; i < 16; i++)
-                {
-                    _mux[i].Fill(_x[i], _y[i], _control);
-                }
-
                 return _mux.Select(n => n.Output).ToArray();
             }
         }

@@ -2,7 +2,7 @@ using ComputingSystems.CombLogic.Interfaces;
 using ComputingSystems.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
+namespace ComputingSystems.CombLogic.Tests
 {
     [TestClass]
     public class DemultiplexorTests
@@ -23,9 +23,9 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
 
         private void VerifyOutput(bool input1, bool input2, bool expectedOutput1, bool expectedOutput2)
         {
-            _demultiplexor.Fill(input1, input2);
-            Assert.AreEqual(_demultiplexor.Output1, expectedOutput1);
-            Assert.AreEqual(_demultiplexor.Output2, expectedOutput2);
+            _demultiplexor.Fill(input1.ToPin(), input2.ToPin());
+            Assert.AreEqual(_demultiplexor.Output1.Value, expectedOutput1);
+            Assert.AreEqual(_demultiplexor.Output2.Value, expectedOutput2);
         }
     }
 }

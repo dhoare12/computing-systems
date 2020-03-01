@@ -1,5 +1,6 @@
 ﻿using ComputingSystems.CombLogic;
 using ComputingSystems.CombLogic.ReferenceImplementations;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.BoolArith
 {
@@ -9,15 +10,19 @@ namespace ComputingSystems.BoolArith
         private readonly Or _or = new Or();
         private readonly Not _not1 = new Not(), _not2 = new Not();
 
-        public bool Input1 { get; set; }
-        public bool Input2 { get; set; }
+        public IPin Input1 { get; } = new Pin();
+        public IPin Input2 { get; } = new Pin();
 
-        public bool Output1
+        public void Fill(IPin in1, IPin in2)
+        {
+            Input1.AttachInput(in1);
+            Input2.AttachInput(in2);
+        }
+
+        public IPin Output1
         {
             get
             {
-                _not1.Input = Input1;
-                _not2.Input = Input2;
                 _and1.Fill(Input1, _not2.Output);
                 _and2.Fill(Input2, _not1.Output);
                 _or.Fill(_and1.Output, _and2.Output);
@@ -25,7 +30,7 @@ namespace ComputingSystems.BoolArith
             }
         }
 
-        public bool Output2
+        public IPin Output2
         {
             get
             {

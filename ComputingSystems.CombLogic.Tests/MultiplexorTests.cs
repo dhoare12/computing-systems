@@ -2,7 +2,7 @@ using ComputingSystems.CombLogic.Interfaces;
 using ComputingSystems.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
+namespace ComputingSystems.CombLogic.Tests
 {
     [TestClass]
     public class MultiplexorTests
@@ -27,8 +27,8 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
 
         private void VerifyOutput(bool input1, bool input2, bool input3, bool expectedOutput)
         {
-            _multiplexor.Fill(input1, input2, input3);
-            Assert.AreEqual(_multiplexor.Output, expectedOutput);
+            _multiplexor.Fill(input1.ToPin(), input2.ToPin(), input3.ToPin());
+            Assert.AreEqual(_multiplexor.Output.Value, expectedOutput);
         }
     }
 }

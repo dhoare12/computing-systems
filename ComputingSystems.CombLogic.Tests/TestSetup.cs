@@ -1,4 +1,4 @@
-﻿namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
+﻿namespace ComputingSystems.CombLogic.Tests
 {
     public static class TestSetup
     {

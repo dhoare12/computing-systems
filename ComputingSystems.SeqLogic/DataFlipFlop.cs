@@ -1,4 +1,5 @@
-﻿using ComputingSystems.SeqLogic.Interfaces;
+﻿using ComputingSystems.Core;
+using ComputingSystems.SeqLogic.Interfaces;
 
 namespace ComputingSystems.SeqLogic
 {
@@ -6,7 +7,13 @@ namespace ComputingSystems.SeqLogic
     // Could implement this with NAND latches and feedback loops
     public class DataFlipFlop : IClockedComponent
     {
-        private bool _clock = false;
+        public DataFlipFlop()
+        {
+            // Initialise to false
+            Output.AttachInput(false.ToPin());
+        }
+
+        private bool _clock;
 
         public bool Clock
         {
@@ -21,13 +28,13 @@ namespace ComputingSystems.SeqLogic
             }
         }
 
-        public bool Output { get; private set; } = false;
+        public IPin Output { get; } = new Pin();
 
-        public bool Input { get; set; }
+        public IPin Input { get; } = new Pin();
 
         private void HandleClockTick()
         {
-            Output = Input;
+            Output.AttachInput(Input.Value.ToPin());
         }
     }
 }

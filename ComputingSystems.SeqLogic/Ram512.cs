@@ -11,15 +11,15 @@ namespace ComputingSystems.SeqLogic
         private readonly IEightWaySixteenBitMultiplexor _mux = TypeProvider.Get<IEightWaySixteenBitMultiplexor>();
         private readonly IEightWayDemultiplexor _demux = TypeProvider.Get<IEightWayDemultiplexor>();
 
-        public bool[] Address { get; set; } = "000 000 000".ToBinary(); // Nine bits
-        private bool[] AddressMostSignificant => new[] {Address[0], Address[1], Address[2]};
-        private bool[] AddressLeastSignificant => new[] {Address[3], Address[4], Address[5], Address[6], Address[7], Address[8]};
+        public IBus Address { get; } = new Bus(9); // Nine bits
+        private IPin[] AddressMostSignificant => new[] {Address.Pins[0], Address.Pins[1], Address.Pins[2]};
+        private IPin[] AddressLeastSignificant => new[] {Address.Pins[3], Address.Pins[4], Address.Pins[5], Address.Pins[6], Address.Pins[7], Address.Pins[8]};
 
-        public bool[] Input { get; set; } = "00000000 00000000".ToBinary();
+        public IBus Input { get; } = new Bus(16);
 
-        public bool Load { get; set; }
+        public IPin Load { get; } = new Pin();
 
-        public bool[] Output => _mux.Output;
+        public IBus Output => new Bus(_mux.Output);
 
         private bool _clock;
         public bool Clock
@@ -29,19 +29,18 @@ namespace ComputingSystems.SeqLogic
             {
                 foreach (var ram in _ram)
                 {
-                    ram.Address = AddressLeastSignificant;
-                    ram.Input = Input;
-                    ram.Load = false;
+                    ram.Address.AttachInput(new Bus(AddressLeastSignificant));
+                    ram.Input.AttachInput(Input);
+                    ram.Load.AttachInput(false.ToPin());
                 }
-                
 
-                _demux.Selector = AddressMostSignificant;
-                _demux.Input = Load;
+                _demux.Selector.AttachInputs(AddressMostSignificant);
+                _demux.Input.AttachInput(Load);
 
                 for (var i = 0; i < _ram.Length; i++)
                 {
-                    _ram[i].Input = Input;
-                    _ram[i].Load = _demux.Output[i];
+                    _ram[i].Input.AttachInput(Input);
+                    _ram[i].Load.AttachInput(_demux.Output[i]);
                 }
 
                 _clock = value;
@@ -50,8 +49,12 @@ namespace ComputingSystems.SeqLogic
                 {
                     ram.Clock = value;
                 }
-                _mux.Input = _ram.Select(r => r.Output).ToArray();
-                _mux.Selector = AddressMostSignificant;
+
+                for (var i = 0; i < 8; i++)
+                {
+                    _mux.Input[i].AttachInputs(_ram[i].Output.Pins);
+                }
+                _mux.Selector.AttachInputs(AddressMostSignificant);
             }
         }
 

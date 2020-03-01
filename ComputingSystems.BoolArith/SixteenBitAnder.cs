@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using ComputingSystems.CombLogic.ReferenceImplementations;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.BoolArith
 {
@@ -10,23 +11,14 @@ namespace ComputingSystems.BoolArith
 
         private readonly And[] _and = Enumerable.Range(0, 16).Select(_ => new And()).ToArray();
 
-        public void Fill(bool[] x, bool[] y)
+        public void Fill(IPin[] x, IPin[] y)
         {
-            _x = x;
-            _y = y;
-        }
-
-        public bool[] Output
-        {
-            get
+            for (var i = 0; i < 16; i++)
             {
-                for (var i = 0; i < 16; i++)
-                {
-                    _and[i].Fill(_x[i], _y[i]);
-                }
-
-                return _and.Select(n => n.Output).ToArray();
+                _and[i].Fill(x[i], y[i]);
             }
         }
+
+        public IPin[] Output => _and.Select(n => n.Output).ToArray();
     }
 }

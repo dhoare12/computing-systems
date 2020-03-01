@@ -1,8 +1,9 @@
-﻿using ComputingSystems.Core;
+﻿using ComputingSystems.CombLogic.Interfaces;
+using ComputingSystems.Core;
 
 namespace ComputingSystems.CombLogic.ReferenceImplementations
 {
-    public class Multiplexor
+    public class Multiplexor : IMultiplexor
     {
         public Multiplexor()
         {

@@ -2,7 +2,7 @@ using ComputingSystems.CombLogic.Interfaces;
 using ComputingSystems.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
+namespace ComputingSystems.CombLogic.Tests
 {
     [TestClass]
     public class AndTests
@@ -23,8 +23,8 @@ namespace ComputingSystems.CombLogic.ReferenceImplementations.Tests
 
         private void VerifyOutput(bool input1, bool input2, bool expectedOutput)
         {
-            _and.Fill(input1, input2);
-            Assert.AreEqual(_and.Output, expectedOutput);
+            _and.Fill(input1.ToPin(), input2.ToPin());
+            Assert.AreEqual(expectedOutput, _and.Output.Value);
         }
     }
 }

@@ -7,16 +7,18 @@ namespace ComputingSystems.CombLogic
     {
         private readonly INand _nand = TypeProvider.Get<INand>();
 
-        public bool Input { get; set; }
-
-        public bool Output
+        public Not()
         {
-            get
-            {
-                _nand.Input1 = Input;
-                _nand.Input2 = Input;
-                return _nand.Output;
-            }
+            _nand.Fill(Input, Input);
+        }
+
+        public IPin Input { get; } = new Pin();
+
+        public IPin Output => _nand.Output;
+        
+        public void Fill(IPin input)
+        {
+            Input.AttachInput(input);
         }
     }
 }
