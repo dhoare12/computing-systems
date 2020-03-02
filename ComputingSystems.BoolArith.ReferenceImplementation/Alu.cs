@@ -16,14 +16,14 @@ namespace ComputingSystems.BoolArith.ReferenceImplementation
             Zr = new ValuePin(() => CalculateValue().All(x => x == false));
         }
 
-        public IPin Zx { get; set; }
-        public IPin Nx { get; set; }
-        public IPin Zy { get; set; }
-        public IPin Ny { get; set; }
-        public IPin F { get; set; }
-        public IPin No { get; set; }
-        public IBus X { get; set; }
-        public IBus Y { get; set; }
+        public IPin Zx { get; } = new Pin();
+        public IPin Nx { get; } = new Pin();
+        public IPin Zy { get; } = new Pin();
+        public IPin Ny { get; } = new Pin();
+        public IPin F { get;  } = new Pin();
+        public IPin No { get; } = new Pin();
+        public IBus X { get;  } = new Bus(16);
+        public IBus Y { get;  } = new Bus(16);
 
         public IBus Out { get; }
 

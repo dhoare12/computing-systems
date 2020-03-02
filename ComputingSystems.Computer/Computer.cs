@@ -7,11 +7,22 @@ namespace ComputingSystems.Computer
 {
     public class Computer
     {
+        public Computer()
+        {
+            // Default to 0
+            _dataMemory.Address.AttachInput("00 0000 0000 0000".ToBinary().ToBus());
+            _dataMemory.Load.AttachInput(false.ToPin());
+
+            _rom.Address.AttachInput("00 0000 0000 0000".ToBinary().ToBus());
+            _rom.Load.AttachInput(false.ToPin());
+        }
+
         private bool _clock;
 
-        public Computer(bool[][] instructions)
+        public Computer(bool[][] instructions) : this()
         {
             _rom.Preload(instructions);
+            
         }
 
         private readonly Cpu _cpu = new Cpu
@@ -38,9 +49,9 @@ namespace ComputingSystems.Computer
 
             var cpuOutputs = _cpu.Outputs;
 
-            _rom.Address.AttachInput(cpuOutputs.Pc);
+            _rom.Address.AttachInput(cpuOutputs.Pc.Splice(14));
 
-            _dataMemory.Address.AttachInput(cpuOutputs.AddressM);
+            _dataMemory.Address.AttachInput(cpuOutputs.AddressM.Splice(14));
             _dataMemory.Input.AttachInput(cpuOutputs.OutM);
             _dataMemory.Load.AttachInput(cpuOutputs.WriteM);
 

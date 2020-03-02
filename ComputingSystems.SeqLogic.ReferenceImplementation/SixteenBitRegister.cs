@@ -33,7 +33,7 @@ namespace ComputingSystems.SeqLogic.ReferenceImplementation
 
         public IBus Input { get; } = new Bus(16);
 
-        public IPin Load { get; } = new Pin();
+        public IPin Load { get; } = new Pin(false.ToPin());
 
         public IBus Output { get; private set; }
     }

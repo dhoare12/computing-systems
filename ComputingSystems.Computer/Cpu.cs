@@ -75,7 +75,7 @@ namespace ComputingSystems.Computer
 
             _shouldUpdateARegister.Fill(destinationInstruction[0], _isAInstruction.Output);
             A.Load.AttachInput(_shouldUpdateARegister.Output);
-            _aRegisterInput.Fill(aInstructionAInput, cInstructionAInput, isCInstruction);
+            _aRegisterInput.Fill(aInstructionAInput.Pad(16), cInstructionAInput, isCInstruction);
             A.Input.AttachInput(_aRegisterInput.Output);
             
             _shouldUpdateDRegister.Fill(destinationInstruction[1], isCInstruction);
@@ -83,7 +83,7 @@ namespace ComputingSystems.Computer
 
             _shouldWriteMem.Fill(destinationInstruction[2], isCInstruction);
             _outputsInner.WriteM.AttachInput(_shouldWriteMem.Output);
-            _outputsInner.AddressM.AttachInput(A.Output);
+            _outputsInner.AddressM.AttachInput(A.Output.Splice(15));
 
             // Jump handling
 
@@ -106,11 +106,11 @@ namespace ComputingSystems.Computer
 
             Pc.Load.AttachInput(_shouldJump.Output);
             
-            Pc.In.AttachInput(A.Output);
+            Pc.In.AttachInput(A.Output.Splice(15));
 
             // TODO: Jump logic
 
-            _outputsInner.Pc.AttachInput(Pc.Out);
+            _outputsInner.Pc.AttachInput(Pc.Out.Splice(15));
         }
 
         public bool Clock
@@ -131,17 +131,21 @@ namespace ComputingSystems.Computer
         public IBus InM { get; } = new Bus(16);
 
         // From instruction memory
-        public IBus Instruction { get; }= new Bus(15);
+        public IBus Instruction { get; }= new Bus(16);
         
         public IPin Reset { get; }= new Pin();
     }
 
     public class CpuOutputs
     {
+        public CpuOutputs()
+        {
+            AddressM.AttachInput("000 0000 0000 0000".ToBinary().ToBus());
+        }
         // To data memory
         public IBus OutM { get; }= new Bus(16);
         public IPin WriteM { get; }= new Pin();
-        public IBus AddressM { get;  }= new Bus(15);
+        public IBus AddressM { get; }= new Bus(15);
         // To instruction memory
         public IBus Pc { get; }= new Bus(15);
     }

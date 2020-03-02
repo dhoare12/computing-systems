@@ -17,6 +17,7 @@ namespace ComputingSystems.Core
         void AttachInput(IBus bus);
 
         bool[] ToBits();
+        IBus Splice(int i);
     }
 
     public class Bus : IBus
@@ -49,6 +50,10 @@ namespace ComputingSystems.Core
         }
 
         public bool[] ToBits() => Pins.Select(x => x.Value).ToArray();
+
+        public IBus Splice(int i) => new Bus(Pins.Take(i).ToArray());
+
+        public IBus Pad(int i) => new Bus(Pins.Concat(Enumerable.Range(0, i - Width).Select(_ => false.ToPin())).ToArray());
     }
 
     public class ValueBus : IBus
@@ -73,6 +78,8 @@ namespace ComputingSystems.Core
         }
 
         public bool[] ToBits() => Pins.Select(x => x.Value).ToArray();
+
+        public IBus Splice(int i) => new Bus(Pins.Take(i).ToArray());
     }
 
     public class ValuePin : IPin
@@ -109,7 +116,7 @@ namespace ComputingSystems.Core
             _attachedTo = attachedTo;
         }
 
-        public bool Value => _attachedTo.Value;
+        public bool Value => _attachedTo?.Value ?? throw new Exception("No input has been attached to this Pin");
 
         public void AttachInput(IPin pin) => _attachedTo = pin;
         

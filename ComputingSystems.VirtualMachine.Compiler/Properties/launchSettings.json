@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ComputingSystems.VirtualMachine.Compiler": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    }
+  }
+}

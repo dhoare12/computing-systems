@@ -14,12 +14,13 @@ namespace ComputingSystems.SeqLogic.ReferenceImplementation
             _bits = bits;
             In = new Bus(bits);
             Out = new Bus(16);
+            Out.AttachInput("0000 0000 0000 0000".ToBinary().ToBus());
         }
 
         public IBus In { get; }
         public IPin Inc { get; } = new Pin();
-        public IPin Load { get; } = new Pin();
-        public IPin Reset { get; } = new Pin();
+        public IPin Load { get; } = new Pin(false.ToPin());
+        public IPin Reset { get; } = new Pin(false.ToPin());
 
         public IBus Out { get; private set; }
 
