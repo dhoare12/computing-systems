@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ComputingSystems.VirtualMachine.Compiler.Commands.Memory
 {
-    public class PushCommand : IMemoryCommand
+    public class PopCommand : IMemoryCommand
     {
-        public PushCommand(MemSegment segment, int index)
+        public PopCommand(MemSegment segment, int index)
         {
             Segment = segment;
             Index = index;
@@ -13,13 +13,12 @@ namespace ComputingSystems.VirtualMachine.Compiler.Commands.Memory
 
         public MemSegment Segment { get; }
         public int Index { get; }
-
         public List<string> Compile(CompilerContext context)
         {
             switch (Segment)
             {
                 case MemSegment.Constant:
-                    return CompileConstant();
+                    throw new NotSupportedException("No popping constants");
                 case MemSegment.Local:
                     return CompileReferenceSegment("LCL");
                 case MemSegment.Argument:
@@ -39,83 +38,62 @@ namespace ComputingSystems.VirtualMachine.Compiler.Commands.Memory
             }
         }
 
-        private List<string> CompileConstant()
+        private List<string> CompileAbsoluteSegment(int absoluteBase)
         {
+            var index = absoluteBase + Index;
+            
             return new List<string>
             {
-                // Load constant into D
-                "@"+Index,
-                "D=A",
-                // Load SP into A
+                // Pop top of stack (value to pop) into D
                 "@SP",
+                "M=M-1",
                 "A=M",
-                // Set Mem at SP to D
-                "M=D",
-                // Increment SP
-                "@SP",
-                "M=M+1"
+                "D=M",
+                // Set memory value to D
+                "@"+index,
+                "M=D"
             };
         }
 
-        private List<string> CompileAbsoluteSegment(int baseIndex)
+        private List<string> CompileReferenceSegment(string referenceBaseName)
         {
-            var index = baseIndex + Index;
             return new List<string>
             {
-                // Load pointer into A
-                "@" + index,
-                // Load value into D
+                // Put mem address into D
+                "@"+referenceBaseName,
                 "D=M",
-                // Set mem at SP to D
-                "@SP",
-                "A=M",
-                "M=D",
-                // Increment SP
-                "@SP",
-                "M=M+1"
-            };
-        }
-
-        private List<string> CompileReferenceSegment(string basePointerName)
-        {
-            return new List<string>
-            {
-                // Load index into D
                 "@"+Index,
-                "D=A",
-                // Load base pointer into A
-                "@"+basePointerName,
-                "A=M",
-                // Add index
-                "A=A+D",
-                // Load value into D
-                "D=M",
-                // Set mem at SP to D
+                "D=D+A",
+                // Put D (mem address) on top of stack
                 "@SP",
-                "A=M",
+                "M=M-1",
+                "A=M+1",
                 "M=D",
-                // Increment SP
-                "@SP",
-                "M=M+1"
+                // Pop top of stack (value to pop) into D
+                "A=A-1",
+                "D=M",
+                // Set mem to D (value to pop)
+                "A=A+1",
+                "A=M",
+                "M=D"
             };
         }
 
         private List<string> CompileStaticSegment(CompilerContext context)
         {
-            var labelName = context.FileName + "." + Index;
+            var refName = context.FileName + "." + Index;
 
             return new List<string>
             {
-                // Load static value into D
-                "@" + labelName,
-                "D=M",
-                // Push D onto top of stack
+                // Pop top of stack into D
                 "@SP",
+                "M=M-1",
                 "A=M",
-                "M=D",
-                // Increment SP
-                "@SP",
-                "M=M+1"
+                "D=M",
+                // Point to static ref
+                "@"+refName,
+                // Set value
+                "M=D"
             };
         }
     }

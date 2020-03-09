@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ComputingSystems.VirtualMachine.Compiler
+﻿namespace ComputingSystems.VirtualMachine.Compiler
 {
     public class CompilerContext
     {
+        public CompilerContext(string fileName)
+        {
+            FileName = fileName;
+        }
+
         public int EqualityLabelsUsed { get; set; }
+        public int FunctionReturnLabelsUsed { get; set; }
+        public string FileName { get; set; }
+        public string FunctionName { get; set; }
     }
 }

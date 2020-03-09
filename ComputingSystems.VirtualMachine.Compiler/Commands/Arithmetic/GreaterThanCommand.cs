@@ -6,9 +6,10 @@ namespace ComputingSystems.VirtualMachine.Compiler.Commands.Arithmetic
     {
         public List<string> Compile(CompilerContext context)
         {
-            var label1 = "EqualityJump" + context.EqualityLabelsUsed;
+            var trueBlockLabel = "EqualityJump" + context.EqualityLabelsUsed;
             context.EqualityLabelsUsed++;
-            var label2 = "EqualityJump" + context.EqualityLabelsUsed;
+
+            var endBlockLabel = "EqualityJump" + context.EqualityLabelsUsed;
             context.EqualityLabelsUsed++;
 
             return new List<string>
@@ -16,24 +17,36 @@ namespace ComputingSystems.VirtualMachine.Compiler.Commands.Arithmetic
                 // Decrement SP (to point at top item)
                 "@SP",
                 "M=M-1",
-                // Load SP into A
                 "A=M",
                 // Pop top of stack into D
                 "D=M",
                 // Decrement pointer to new top of stack
-                "A=A-1",
-                // Setup jump for case where values are equal
-                "@"+label1,
-                // Subtract from each other, jump if result>0 (meaning x>y true case) 
-                "D-M;JGT",
-                // We didn't jump - false case. Set top of stack to 0 and jump out
+                "@SP",
+                "M=M-1",
+                "A=M",
+                // Subtract from each other and store in D (D = y - x)
+                "D=D-M",
+                // Setup jump for case where x>y (true case)
+                "@"+trueBlockLabel,
+                // Jump if D<0 (ie x>y)
+                "D;JLT",
+                // x is <= y, false case. Set top of stack to false (0)
+                "@SP",
+                "A=M",
                 "M=0",
-                $"@{label2}",
+                // Jump to end
+                "@" + endBlockLabel,
                 "0;JMP",
-                $"({label1})",
-                // Handle true case
+                // True case block, x>y - Set top of stack to true (-1)
+                $"({trueBlockLabel})",
+                "@SP",
+                "A=M",
                 "M=-1",
-                $"({label2})"
+                $"({endBlockLabel})",
+                // Increment SP
+                "@SP",
+                "M=M+1"
+
             };
         }
     }
